@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{ctex}
+\usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
+% \syntaxonly
+\usepackage{graphicx} % 插入图片
+% \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
+
+
+% 中文字体，具体设置参考ctex宏包
+\setCJKmainfont{FZSSJW.TTF}[ % 设置中文主字体为方正书宋 
+    Path=./fonts/,
+    BoldFont=FZHTJW.TTF, % 设置粗体为方正黑体
+    ItalicFont=FZKTJW.TTF, % 设置斜体为方正楷体
+]
+\setCJKsansfont{FZHTJW.TTF}[Path=./fonts/] % 设置无衬线字体为方正黑体
+\setCJKmonofont{FZFSJW.TTF}[Path=./fonts/] % 设置等宽字体为方正仿宋
+
+% 英文字体，具体设置参考fontspec宏包
+\setmainfont{CaskaydiaCoveNerdFont}[ % 设置英文主字体为CaskaydiaCove Nerd Font
+    Path=./fonts/, % 指定字体文件所在的目录
+    Extension=.ttf, % 字体文件后缀
+    UprightFont=*-regular, % 正常字体
+    BoldFont=*-Bold, % 加粗
+    ItalicFont=*-Italic, % 斜体
+    BoldItalicFont=*-BoldItalic]
+\setsansfont{CaskaydiaCoveNerdFont}[ % 设置英文无衬线字体为CaskaydiaCove Nerd Font
+    Path=./fonts/, % 指定字体文件所在的目录
+    Extension=.ttf, % 字体文件后缀
+    UprightFont=*-regular, % 正常字体
+    BoldFont=*-Bold, % 加粗
+    ItalicFont=*-Italic, % 斜体
+    BoldItalicFont=*-BoldItalic]
+\setmonofont{CaskaydiaCoveNerdFontMono}[ % 设置英文等宽字体为CaskaydiaCove Nerd Font Mono
+    Path=./fonts/, % 指定字体文件所在的目录
+    Extension=.ttf, % 字体文件后缀
+    UprightFont=*-regular, % 正常字体
+    BoldFont=*-Bold, % 加粗
+    ItalicFont=*-Italic, % 斜体
+    BoldItalicFont=*-BoldItalic]
+
+
+%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
+
+

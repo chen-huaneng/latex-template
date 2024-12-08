@@ -1,11 +1,42 @@
-%! TeX program = lualatex
-\documentclass[10pt,a4paper]{book}
+%! TeX program = xelatex
+\documentclass[10pt, a4paper]{ctexbook}
 
-\input{preamble}
+% \input{preamble}
+
+% 导言区，加载宏包和各项设置
+\input{noteTemplate}
 
 \begin{document}
+``你好世界''
 
-\input{lecture2}
+这是一段正文的中文文本。
+
+{\small 这是一段小字的中文文本}
+
+{\Large 这是一段大字的中文文本}
+
+{\itshape 这是一段斜体的中文文本}
+
+\textbf{这是一段加粗正文的中文文本。}
+
+{\CJKfamily{zhmono}
+这是一段等宽字体的中文文本。
+\textbf{这是一段加粗的等宽字体的中文文本。}
+}
+
+{\CJKfamily{zhsans}
+这是一段中文无衬线字体的文本。
+\textbf{这是一段加粗的中文无衬线字体的文本。}
+}
+
+This is a sample text in the main font.
+
+\textbf{This is a sample bold text in the main font.}
+
+{\sffamily This is a sample text in the sans font.}
+
+{\ttfamily This is a sample text in the mono font.}
+% \input{lecture2}
 
 \end{document}
 
