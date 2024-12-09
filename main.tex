@@ -9,6 +9,14 @@
 \input{noteTemplate}
 
 \begin{document}
+
+\frontmatter
+
+\chapter{Frontmatter}
+\lipsum[5-10]
+
+\mainmatter
+
 \chapter{Introduction}
 ``你好世界''
 这是一段正文的中文文本。
@@ -63,9 +71,28 @@ This is a sample text in the main font. \marginpar{Hello, this is a test margin 
 
 \chapter{Column Generation}
 
+\lipsum[5-10]
+
+\section{Test Column}
+
 \lipsum[10-20]
 
+\backmatter
+
 \chapter*{Appendix}
+% \markboth{Appebdix}{Appendix}
+\chaptermark{Appendix}
+
+\lipsum[40-50]
+
+\section*{你好，世界！}
+% \section*{Hello World}
+% \sectionmark{Hello World}
+\sectionmark{你好，世界！}
+
+\lipsum[5-10]
+
+\section{Test 4}
 
 \lipsum[10-20]
 

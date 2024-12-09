@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 
 
-% \usepackage{ctex}
 \usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
 \usepackage{graphicx} % 插入图片
@@ -12,6 +11,7 @@
 \usepackage{xcolor} % 用于支持输出颜色
 \usepackage{titlesec} % 修改Chapter和Section章节标题的格式
 \usepackage{blindtext, lipsum} % 生成英文测试文本
+\usepackage{fancyhdr} % 修改页眉页脚的格式
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -121,3 +121,33 @@
 %%%%%%%%%%%%%%%章节标题设计%%%%%%%%%%%%%%%%%
 
 
+
+%%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
+
+
+% 详细参数参考fancyhdr宏包
+\pagestyle{fancy} % 设置文档的页面样式为fancy，这意味着页眉和页脚将使用fancyhdr宏包提供的自定义格式。
+\renewcommand{\chaptermark}[1]{\markboth{\bfseries#1}{}} % 在双面打印时将章节标题（#1）标记在偶数页的页眉（左边），而奇数页的页眉保持为空。
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ \bfseries#1}} % 在单面或双面打印时都将小节编号和标题（\thesection\ #1）标记在奇数页的页脚（右边）。
+\fancyhf{} % 清空原本的页脚页眉样式
+\fancyhead[RO]{\thepage} % 设置奇数页（[RO]，即Right, Odd）的页眉右侧（内边）显示的内容为页码（\thepage）。
+\fancyhead[LO]{
+    % The \S only if the section number is greater than 0.
+    \ifnum\value{section}>0
+        \S
+    \fi
+    % The section title
+    \rightmark}
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{
+    % The chapter number only if it's greater than 0
+    \ifnum\value{chapter}>0
+        \chaptername\ \thechapter.\ 
+    \fi
+    % The chapter title
+    \leftmark}
+\renewcommand{\headrulewidth}{0.4pt} % 注意不用 \setlength
+\renewcommand{\footrulewidth}{0pt} % 去掉页脚的横线
+
+
+%%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
