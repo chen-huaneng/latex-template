@@ -1,14 +1,20 @@
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 
 
-\usepackage{ctex}
+% \usepackage{ctex}
 \usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
 \usepackage{graphicx} % 插入图片
+\usepackage{geometry} % 设置页面参数
+\usepackage{unicode-math} % 配置 Unicode 数学字体
+\usepackage{amsmath} % 用于加载数学公式
 % \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
+\usepackage{xcolor} % 用于支持输出颜色
+\usepackage{titlesec} % 修改Chapter和Section章节标题的格式
+\usepackage{blindtext, lipsum} % 生成英文测试文本
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -31,23 +37,87 @@
     UprightFont=*-regular, % 正常字体
     BoldFont=*-Bold, % 加粗
     ItalicFont=*-Italic, % 斜体
-    BoldItalicFont=*-BoldItalic]
+    BoldItalicFont=*-BoldItalic, % 粗斜体
+]
 \setsansfont{CaskaydiaCoveNerdFont}[ % 设置英文无衬线字体为CaskaydiaCove Nerd Font
     Path=./fonts/, % 指定字体文件所在的目录
     Extension=.ttf, % 字体文件后缀
     UprightFont=*-regular, % 正常字体
     BoldFont=*-Bold, % 加粗
     ItalicFont=*-Italic, % 斜体
-    BoldItalicFont=*-BoldItalic]
+    BoldItalicFont=*-BoldItalic, % 粗斜体
+]
 \setmonofont{CaskaydiaCoveNerdFontMono}[ % 设置英文等宽字体为CaskaydiaCove Nerd Font Mono
     Path=./fonts/, % 指定字体文件所在的目录
     Extension=.ttf, % 字体文件后缀
     UprightFont=*-regular, % 正常字体
     BoldFont=*-Bold, % 加粗
     ItalicFont=*-Italic, % 斜体
-    BoldItalicFont=*-BoldItalic]
+    BoldItalicFont=*-BoldItalic, % 粗斜体
+]
+
+% 具体设置参考unicode-math宏包
+\setmathfont{TeX Gyre DejaVu Math} % DejaVu风格数学Unicode字体
+
+\linespread{1.25} % 修改行距
 
 
 %%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
+
+
+% 具体设置参考geometry宏包
+\geometry{
+    paperwidth=210mm, % A4纸的标准宽度
+    paperheight=297mm, % A4纸的标准高度
+    inner=1in, % 靠近书脊一侧的边距
+    outer=1.25in, % 远离书脊一侧的边距
+    top=72pt, % 上边距
+    textwidth=416pt, % 正文区域的宽度
+    marginparsep=7pt, % 正文区域和边注区域的间距
+    marginparwidth=72pt, % 边注区域的宽度
+    textheight=700pt, % 正文区域的高度
+    footskip=25pt, % 页脚区域和正文区域的间距
+}
+
+
+%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%章节标题设计%%%%%%%%%%%%%%%%%
+% 参考：https://stackoverflow.com/questions/78868366/chapter-title-style
+
+
+% 设置章节编号的字体样式
+\newcommand{\chapnumfont}{%     % define font for chapter number
+    \usefont{T1}{pnc}{b}{n}%      % choose New Chancery, bold, normal shape
+    \fontsize{100}{25}%          % font size 100pt, baselineskip 25pt
+    \selectfont%                  % activate font
+}
+\colorlet{chapnumcol}{red!75!black}  % color for chapter number
+
+% 定义带编号的章节标题样式，具体设置参考titlesec宏包
+\titleformat{name=\chapter}[display]
+{\filleft\bfseries}
+{\filleft\chapnumfont\textcolor{chapnumcol}{\thechapter}}
+{0pt}
+{\Huge}
+
+% 定义不带编号的章节标题样式，具体设置参考titlesec宏包
+\titleformat{name=\chapter,numberless}[display]
+{\filright\bfseries}
+{\filright}
+{0pt}
+{\Huge}
+
+% 定义章节和正文等位置的距离，具体设置参考titlesec宏包
+\titlespacing{\chapter}{0pt}{0pt}{\baselineskip}
+
+
+%%%%%%%%%%%%%%%章节标题设计%%%%%%%%%%%%%%%%%
 
 

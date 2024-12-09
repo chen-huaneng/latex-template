@@ -1,5 +1,7 @@
 %! TeX program = xelatex
-\documentclass[10pt, a4paper]{ctexbook}
+% 如果不需要奇偶面不同的话切换下面两行的注释顺序
+% \documentclass[10pt, a4paper, fontset=none, no-math, oneside]{ctexbook}
+\documentclass[10pt, a4paper, fontset=none, no-math]{ctexbook}
 
 % \input{preamble}
 
@@ -7,7 +9,12 @@
 \input{noteTemplate}
 
 \begin{document}
+\chapter{Introduction}
 ``你好世界''
+这是一段正文的中文文本。
+这是一段正文的中文文本。\footnote{Test footnote.}
+这是一段正文的中文文本。
+这是一段正文的中文文本。
 
 这是一段正文的中文文本。
 
@@ -17,7 +24,9 @@
 
 {\itshape 这是一段斜体的中文文本}
 
-\textbf{这是一段加粗正文的中文文本。}
+\textbf{这是一段加粗正文的中文文本。}\marginpar{这是一段用于边注测试的文本。}
+
+\section{Test 1}
 
 {\CJKfamily{zhmono}
 这是一段等宽字体的中文文本。
@@ -29,15 +38,39 @@
 \textbf{这是一段加粗的中文无衬线字体的文本。}
 }
 
-This is a sample text in the main font.
+\section{Test 2}
+
+This is a sample text in the main font. \marginpar{Hello, this is a test margin paragraph.}
 
 \textbf{This is a sample bold text in the main font.}
 
 {\sffamily This is a sample text in the sans font.}
 
 {\ttfamily This is a sample text in the mono font.}
-% \input{lecture2}
 
+\begin{equation}
+    \sum_{k=1}^n k^2 = \frac{1}{2} n (n+1)
+\end{equation}
+
+\section{Test 3}
+
+\lipsum[30-50]
+
+
+\chapter{导言}
+
+\lipsum[10-20]
+
+\chapter{Column Generation}
+
+\lipsum[10-20]
+
+\chapter*{Appendix}
+
+\lipsum[10-20]
+
+
+% \input{lecture2}
 \end{document}
 
 
