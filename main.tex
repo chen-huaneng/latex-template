@@ -3,19 +3,27 @@
 % \documentclass[10pt, a4paper, fontset=none, no-math, oneside]{ctexbook}
 \documentclass[10pt, a4paper, fontset=none, no-math]{ctexbook}
 
-% \input{preamble}
-
 % 导言区，加载宏包和各项设置
-\input{noteTemplate}
+\input{preamble}
 
 \begin{document}
 
 \frontmatter
 
+% \input{frontmatter}
+
 \chapter{Frontmatter}
 \lipsum[5-10]
 
 \mainmatter
+
+% 每个章节就是一个.tex文件，方便后续的调试
+% \input{chapter1}
+% \input{chapter2}
+% \input{chapter3}
+% \input{chapter4}
+% \input{chapter5}
+% \input{chapter6}
 
 \chapter{Introduction}
 
@@ -37,6 +45,8 @@
 
 \backmatter
 
+% \input{appendix}
+
 \chapter*{Appendix}
 \chaptermark{Appendix}
 
@@ -51,6 +61,4 @@
 
 \lipsum[5-10]
 
-
-% \input{lecture2}
 \end{document}
