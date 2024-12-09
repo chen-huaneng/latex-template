@@ -123,29 +123,27 @@
 
 
 %%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
+% 参考：https://tex.stackexchange.com/questions/732462/chapter-number-in-the-header-with-chapter/732464?noredirect=1#comment1824660_732464 
 
 
 % 详细参数参考fancyhdr宏包
+\renewcommand{\chaptermark}[1]{\markboth{\bfseries\uppercase{#1}}{}} % 在双面打印时将章节标题（#1）标记在偶数页的页眉（左边），而奇数页的页眉保持为空。
+\renewcommand{\sectionmark}[1]{\markright{\bfseries#1}} % 在单面或双面打印时都将标题（#1）标记在奇数页的页脚（右边）。
+\AddToHook {cmd/mainmatter/before} {% 在mainmatter之前重新定义chapter和section的编号格式
+    \renewcommand{\chaptermark}[1]{\markboth{\bfseries\uppercase{#1}}{}}%
+    \renewcommand{\sectionmark}[1]{\markright{\S \thesection\ \bfseries#1}}%
+}
+\AddToHook {cmd/backmatter/before} {% 在backmatter之前重新定义chapter和section的编号格式并修改section和chapter的编号
+    \renewcommand{\chaptermark}[1]{\markboth{\bfseries\uppercase{#1}}{}}
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\ \bfseries#1}}%
+    \renewcommand{\thesection}{\Roman{section}}%
+}
 \pagestyle{fancy} % 设置文档的页面样式为fancy，这意味着页眉和页脚将使用fancyhdr宏包提供的自定义格式。
-\renewcommand{\chaptermark}[1]{\markboth{\bfseries#1}{}} % 在双面打印时将章节标题（#1）标记在偶数页的页眉（左边），而奇数页的页眉保持为空。
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ \bfseries#1}} % 在单面或双面打印时都将小节编号和标题（\thesection\ #1）标记在奇数页的页脚（右边）。
 \fancyhf{} % 清空原本的页脚页眉样式
 \fancyhead[RO]{\thepage} % 设置奇数页（[RO]，即Right, Odd）的页眉右侧（内边）显示的内容为页码（\thepage）。
-\fancyhead[LO]{
-    % The \S only if the section number is greater than 0.
-    \ifnum\value{section}>0
-        \S
-    \fi
-    % The section title
-    \rightmark}
+\fancyhead[LO]{\rightmark}
 \fancyhead[LE]{\thepage}
-\fancyhead[RE]{
-    % The chapter number only if it's greater than 0
-    \ifnum\value{chapter}>0
-        \chaptername\ \thechapter.\ 
-    \fi
-    % The chapter title
-    \leftmark}
+\fancyhead[RE]{\leftmark}
 \renewcommand{\headrulewidth}{0.4pt} % 注意不用 \setlength
 \renewcommand{\footrulewidth}{0pt} % 去掉页脚的横线
 
