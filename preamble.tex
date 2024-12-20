@@ -4,6 +4,7 @@
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 
 
+\usepackage[numbers, sort&compress, square]{natbib} % 优化参考文献引用
 \usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
 \usepackage{graphicx} % 插入图片
@@ -15,6 +16,8 @@
 \usepackage{titlesec} % 修改Chapter和Section章节标题的格式
 \usepackage{blindtext, lipsum} % 生成英文测试文本
 \usepackage{fancyhdr} % 修改页眉页脚的格式
+\usepackage{gbt7714} % 参考文献样式
+\usepackage{hyperref} % 超链接
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -192,3 +195,28 @@
 
 
 %%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{gbt7714-numerical} % 顺序编码制
+
+
+%%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%超链接设计%%%%%%%%%%%%%%%%%%
+
+
+\hypersetup{
+    colorlinks=true, % 启用颜色
+    linkcolor=red, % 内部链接的颜色
+    citecolor=red, % 引用链接的颜色
+    urlcolor=blue!90!black, % 外部链接的颜色
+}
+
+
+%%%%%%%%%%%%%%%%超链接设计%%%%%%%%%%%%%%%%%%
