@@ -1,5 +1,7 @@
 % TODO: 增加封面
 % TODO: 增加定理盒子
+% TODO: 修改封面和目录的样式
+% TODO: 修改\part的样式
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{note}[2024-12-21 Template for notes]
@@ -25,6 +27,8 @@
 \RequirePackage{fancyhdr} % 修改页眉页脚的格式
 \RequirePackage{gbt7714} % 参考文献样式
 \RequirePackage{hyperref} % 超链接
+\RequirePackage{bookmark} % 生成PDF书签
+\RequirePackage{tocbibind} % 为目录、参考文献和索引生成目录项
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -219,6 +223,7 @@
 
 
 \hypersetup{
+    bookmarksopen=true, % 启用书签
     colorlinks=true, % 启用颜色
     linkcolor=red, % 内部链接的颜色
     citecolor=orange, % 引用链接的颜色

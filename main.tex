@@ -3,6 +3,21 @@
 
 \begin{document}
 
+\title{Template for notes by \LaTeX}
+\author{Abel}
+\date{\today}
+
+% 生成封面
+\clearpage\maketitle
+\thispagestyle{empty}
+
+\cleardoublepage
+\pagenumbering{Roman} 
+
+% 生成目录
+\tableofcontents
+% \cleardoublepage
+
 \frontmatter
 
 % \input{frontmatter}
@@ -19,6 +34,8 @@
 % \input{chapter4}
 % \input{chapter5}
 % \input{chapter6}
+
+\part{First portion}
 
 \chapter{Introduction}
 
@@ -45,6 +62,7 @@ hello world!\cite{2015The} This is a test text line.\url{https://github.com/chen
 % \input{appendix}
 
 \chapter*{Appendix}
+% \addcontentsline{toc}{chapter}{Appendix}
 \chaptermark{Appendix}
 
 \lipsum[5-10]
