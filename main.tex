@@ -2,10 +2,40 @@
 \documentclass{note}
 
 \begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               COVER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+\begin{titlepage}
+\noindent
+\titlefont Template for note\par
+\epigraph{Pure mathematics is on the whole distinctly more useful than applied. For what is useful above all is technique, and mathematical technique is taught mainly through pure mathematics.}%
+{\textit{London 1941}\\ \textsc{G. H. Hardy}}
+\null\vfill
+\vspace*{1cm}
+\noindent
+\hfill
+\begin{minipage}{0.5\linewidth}
+    \begin{flushright}
+        \printauthor
+    \end{flushright}
+\end{minipage}
+%
+\begin{minipage}{0.02\linewidth}
+    \rule{1pt}{60pt}
+\end{minipage}
+\titlepagedecoration
 
-\title{Template for notes by \LaTeX}
-\author{Abel}
-\date{\today}
+% 增加空白页方便打印
+\clearpage
+~
+\thispagestyle{empty}
+\clearpage
+\end{titlepage}
+
+
+% \title{Template for notes by \LaTeX}
+% \author{Abel}
+% \date{\today}
 
 % 生成封面
 % \clearpage\maketitle
@@ -17,10 +47,13 @@
 % 生成目录
 {
     \pagenumbering{Alph} % 目录页码编号为大写字母
-    \hypersetup{linkcolor=red!75!black} % 设置局部目录超链接颜色
+    \hypersetup{linkcolor=red!65!black} % 设置局部目录超链接颜色
     \tableofcontents
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            FRONTMATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
 % \input{frontmatter}
@@ -28,6 +61,9 @@
 \chapter{Frontmatter}
 \lipsum[5-10]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            MAINMATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 
 % 每个章节就是一个.tex文件，方便后续的调试
@@ -62,10 +98,16 @@ hello world!\cite{2015The} This is a test text line.\url{https://github.com/chen
 
 \lipsum[5-10]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            BACKMATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
 % \input{appendix}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Appendix}
 % \addcontentsline{toc}{chapter}{Appendix}
 \chaptermark{Appendix}
@@ -81,6 +123,9 @@ hello world!\cite{2015The} This is a test text line.\url{https://github.com/chen
 
 \lipsum[5-10]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliography{references}
 
 \end{document}
