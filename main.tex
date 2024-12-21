@@ -15,8 +15,11 @@
 % \pagenumbering{Roman} 
 
 % 生成目录
-\pagenumbering{Alph}
-\tableofcontents
+{
+    \pagenumbering{Alph} % 目录页码编号为大写字母
+    \hypersetup{linkcolor=red!75!black} % 设置局部目录超链接颜色
+    \tableofcontents
+}
 
 \frontmatter
 

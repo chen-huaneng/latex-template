@@ -1,6 +1,5 @@
-% TODO: 增加封面
+% TODO: 修改封面样式
 % TODO: 增加定理盒子
-% TODO: 修改封面和目录的样式
 % TODO: 修改\part的样式
 
 \NeedsTeXFormat{LaTeX2e}
@@ -21,7 +20,7 @@
 \RequirePackage{unicode-math} % 配置 Unicode 数学字体
 \RequirePackage{amsmath} % 用于加载数学公式
 % \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
-\RequirePackage[x11names]{xcolor} % 用于支持输出颜色
+\RequirePackage[x11names, table]{xcolor} % 用于支持输出颜色
 \RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
 \RequirePackage{tocloft} % 自定义目录样式
 \RequirePackage{lipsum} % 生成英文测试文本
@@ -30,6 +29,9 @@
 \RequirePackage{hyperref} % 超链接
 \RequirePackage{bookmark} % 生成PDF书签
 \RequirePackage{tocbibind} % 为目录、参考文献和索引生成目录项
+\RequirePackage{epigraph} % 排版引用
+\RequirePackage[T1]{fontenc} % 改善文档中西欧语言的显示效果
+\RequirePackage{libertine} % Linux Libertine 字体系列(衬线字体)
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -101,6 +103,69 @@
 
 
 %%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%Part设计%%%%%%%%%%%%%%%%%%%
+
+
+% 参考https://tex.stackexchange.com/questions/192851/redefine-part-style
+% \makeatletter
+% \titleformat{\part}[display]%
+%   {\Huge\scshape\filright}%
+%   {\partname~\thepart:}%
+%   {20pt}%
+%   {\thispagestyle{epigraph}}
+% \makeatother
+% \setlength\epigraphwidth{.6\textwidth}
+
+% 参考https://tex.stackexchange.com/questions/521981/modifying-part-style-in-documentclass-book
+% \titleformat{\part}[display]
+%   {\titlerule\vspace*{.8ex}\normalfont\Huge\scshape}
+%   {\partname~\thepart}
+%   {10pt}
+%   {\thispagestyle{epigraph}}
+%   [\titlerule]
+
+% 参考https://tex.stackexchange.com/questions/192838/part-heading-style
+\makeatletter
+\renewcommand\thepart{\arabic{part}}
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+  \reset@font
+  \parindent \z@ 
+  \vspace*{10\p@}%
+  \sloppy % 松散排版要求
+  \hbox{%
+    \vbox{%
+      \hsize=7mm%
+      \begin{tabular}{@{}p{7mm}@{}}
+        \makebox[7mm]{\strut\small\partname}\\
+        \makebox[7mm]{\cellcolor{red!75!black}\Huge\color{white}\bfseries\strut\thepart\rule[-4cm]{0pt}{4cm}}%
+      \end{tabular}%
+      \makebox(0,0){\color{red!75!black}\setlength{\fboxrule}{2pt}\put(-10,-100){\fbox{\phantom{\rule[-4cm]{7mm}{4cm}}}}}
+      }%
+    \kern-2pt
+    \vbox to 0pt{%
+       \tabular[t]{@{}p{1cm}p{\dimexpr\hsize-2.1cm}@{}}\hlineforpart
+          & \Huge\itshape\rule{0pt}{1.5\ht\strutbox}#1\endtabular}%
+    }%
+  \fussy % 恢复排版要求
+  \cleardoublepage
+ \vskip 100\p@
+}
+% Define a new command for the hline with specific color and thickness
+\newcommand{\hlineforpart}{\noalign {\ifnum 0=`}\fi \color{red!75!black}\hrule height 1pt depth 0pt \ifnum 0=`{\fi}}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%Part设计%%%%%%%%%%%%%%%%%%%
 
 
 
