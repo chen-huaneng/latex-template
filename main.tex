@@ -8,15 +8,15 @@
 \date{\today}
 
 % 生成封面
-\clearpage\maketitle
-\thispagestyle{empty}
-
-\cleardoublepage
-\pagenumbering{Roman} 
+% \clearpage\maketitle
+% \thispagestyle{empty}
+%
+% \cleardoublepage
+% \pagenumbering{Roman} 
 
 % 生成目录
+\pagenumbering{Alph}
 \tableofcontents
-% \cleardoublepage
 
 \frontmatter
 
@@ -35,7 +35,7 @@
 % \input{chapter5}
 % \input{chapter6}
 
-\part{First portion}
+\part{First Part}
 
 \chapter{Introduction}
 
@@ -48,6 +48,8 @@ hello world!\cite{2015The} This is a test text line.\url{https://github.com/chen
 \subsection{Subsection 1.1.1}\label{test}
 
 \lipsum[5-10]
+
+\part{Second Part}
 
 \chapter{Column Generation}
 

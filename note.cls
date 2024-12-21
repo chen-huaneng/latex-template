@@ -23,7 +23,8 @@
 % \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
 \RequirePackage[x11names]{xcolor} % 用于支持输出颜色
 \RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
-\RequirePackage{blindtext, lipsum} % 生成英文测试文本
+\RequirePackage{tocloft} % 自定义目录样式
+\RequirePackage{lipsum} % 生成英文测试文本
 \RequirePackage{fancyhdr} % 修改页眉页脚的格式
 \RequirePackage{gbt7714} % 参考文献样式
 \RequirePackage{hyperref} % 超链接
@@ -232,3 +233,28 @@
 
 
 %%%%%%%%%%%%%%%%超链接设计%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
+% 参考https://coffeelize.top/posts/LaTeX-Catalog-Study-Notes.html
+% 参考https://tex.stackexchange.com/questions/461216/remove-indentation-in-table-of-contents
+
+
+\CTEXsetup[name={,},number={\arabic{chapter}}]{chapter} % 修改中文章节标识为数字标识
+\CTEXsetup[name={,},number={\Roman{part}}]{part} % 修改中文部分标识为大写罗马字母标识
+\renewcommand{\cftdot}{$\cdot$} % 设置导引符为垂直居中的小圆点
+\renewcommand{\cftdotsep}{1.5} % 设置点间距
+\renewcommand\cftpartdotsep{2} % 设置部分与页码间的导引符
+\renewcommand\cftchapdotsep{2} % 设置章节标题与页码间的导引符
+\setlength{\cftbeforesecskip}{0pt} % 二级标题间隔
+\setcounter{secnumdepth}{3} % 设置目录深度至三级标题
+% \setlength{\cftbeforechapskip}{5pt} % 一级标题（章节标题）前间隔
+\renewcommand{\cftchapafterpnum}{\vspace{5pt}} % 一级标题（章节标题）后间隔
+\setlength{\cftchapindent}{0pt} % Remove indent for \section
+\setlength{\cftsecindent}{15pt} % Indent for \section
+\setlength{\cftsubsecindent}{15pt} % Indent for \subsection
+% \setlength{\cftsubsubsecindent}{0pt} % Remove indent for \subsubsection
+
+
+%%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
