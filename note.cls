@@ -1,23 +1,30 @@
 % TODO: 增加封面
 % TODO: 增加定理盒子
 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{note}[2024-12-21 Template for notes]
+
+% 如果不需要奇偶面不同的话切换下面两行的注释顺序，同样要修改fancyhdr的选项
+% \LoadClass[10pt, a4paper, fontset=none, oneside]{ctexbook}
+\LoadClass[10pt, a4paper, fontset=none]{ctexbook}
+
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 
 
-\usepackage[numbers, sort&compress, square]{natbib} % 优化参考文献引用
-\usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
+\RequirePackage[numbers, sort&compress, square]{natbib} % 优化参考文献引用
+\RequirePackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
-\usepackage{graphicx} % 插入图片
-\usepackage{geometry} % 设置页面参数
-\usepackage{unicode-math} % 配置 Unicode 数学字体
-\usepackage{amsmath} % 用于加载数学公式
+\RequirePackage{graphicx} % 插入图片
+\RequirePackage{geometry} % 设置页面参数
+\RequirePackage{unicode-math} % 配置 Unicode 数学字体
+\RequirePackage{amsmath} % 用于加载数学公式
 % \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
-\usepackage[x11names]{xcolor} % 用于支持输出颜色
-\usepackage{titlesec} % 修改Chapter和Section章节标题的格式
-\usepackage{blindtext, lipsum} % 生成英文测试文本
-\usepackage{fancyhdr} % 修改页眉页脚的格式
-\usepackage{gbt7714} % 参考文献样式
-\usepackage{hyperref} % 超链接
+\RequirePackage[x11names]{xcolor} % 用于支持输出颜色
+\RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
+\RequirePackage{blindtext, lipsum} % 生成英文测试文本
+\RequirePackage{fancyhdr} % 修改页眉页脚的格式
+\RequirePackage{gbt7714} % 参考文献样式
+\RequirePackage{hyperref} % 超链接
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
