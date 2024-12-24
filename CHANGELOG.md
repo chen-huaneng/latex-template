@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+
+## [1.0.1] - 2024-12-24
+
+### Added
+
+- Fancy title page and cover page.
+- Separate the cover page and the main content.
+- Better part page.
+- Better table of content.
+- Better reference.
+
 ## [1.0.0] - 2024-12-09
 
 ### Added
@@ -14,4 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Change the header and footer.
 - Add some test content.
 
-[1.0.0]: https://github.com/chen-huaneng/note-template/commit/44797d8808b9e587d005485fcb83488eb3239aff
+
+
+[1.0.1]: https://github.com/chen-huaneng/note-template/releases/tag/v1.0.1
+[1.0.0]: https://github.com/chen-huaneng/note-template/releases/tag/v1.0.0
