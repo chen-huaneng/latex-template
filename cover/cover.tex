@@ -1,0 +1,148 @@
+%! TeX program = xelatex
+\documentclass[10pt, a4paper, fontset=none, oneside]{ctexart}
+
+%%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
+% 参考https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
+
+
+\usepackage{geometry} % 设置页面参数
+% \usepackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
+% \syntaxonly
+% 参考https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
+\usepackage[dvipsnames, svgnames, x11names, table]{xcolor} % 用于支持输出颜色
+\usepackage[T1]{fontenc} % 改善文档中西欧语言的显示效果
+\usepackage{lmodern} % lmodern字体
+\usepackage{libertine} % Linux Libertine 字体系列(衬线字体)
+\usepackage{tikz} % 绘图
+\usepackage{tcolorbox} % 带颜色的盒子
+\usepackage{calligra} % calligra字体
+\usepackage{auto-pst-pdf} %To compile psvectorian directly
+\usepackage{psvectorian} % 绘制装饰物
+
+
+%%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
+
+
+% 具体设置参考geometry宏包
+\geometry{
+    a4paper,
+    inner=0.5in, % 靠近书脊一侧的边距
+    outer=0.5in, % 远离书脊一侧的边距
+    top=0.5in, % 上边距
+    bottom=0.5in, % 下边距
+    marginparsep=0pt, % 正文区域和边注区域的间距
+    marginparwidth=0pt, % 边注区域的宽度
+    footskip=0pt, % 页脚区域和正文区域的间距
+}
+
+
+%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
+
+
+% 中文字体，具体设置参考ctex宏包
+\setCJKmainfont{FZSSJW.TTF}[ % 设置中文主字体为方正书宋 
+    Path=../fonts/,
+    BoldFont=FZHTJW.TTF, % 设置粗体为方正黑体
+    ItalicFont=FZKTJW.TTF, % 设置斜体为方正楷体
+]
+\setCJKsansfont{FZHTJW.TTF}[Path=../fonts/] % 设置无衬线字体为方正黑体
+\setCJKmonofont{FZFSJW.TTF}[Path=../fonts/] % 设置等宽字体为方正仿宋
+
+
+%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%封面设计%%%%%%%%%%%%%%%%%%%%
+% 参考https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
+
+
+% cover page
+\usetikzlibrary{matrix,fit,chains,calc,scopes}            
+\tcbuselibrary{skins}
+\renewcommand*{\psvectorianDefaultColor}{Green}%
+
+% 定义 \entoday 命令以输出英文日期
+\newcommand{\entoday}{\number\day~\ifcase\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+  ~\number\year}
+
+\tcbset{
+    Baystyle/.style={
+        sharp corners,
+        enhanced,
+        boxrule=6pt,
+        colframe=OliveGreen,
+        height=\textheight,
+        width=\textwidth,
+        borderline={8pt}{-11pt}{},
+    }
+}
+\newcommand\coverpage{%
+\centering
+    \begin{tcolorbox}[Baystyle,]
+        {\begin{center}
+        \vspace*{0.14\textheight}
+        {
+            \fontsize{45}{45}\scshape Book Title\\
+        }
+        \vspace*{0.018\textheight}
+        \vspace*{0.1\textheight}
+        \vspace*{0.2\textheight}
+        % Big Logo\\
+        \vspace*{0.2\textheight}
+        {\fontsize{12}{12}\calligra Create by\\}
+        {
+            \fontsize{28}{28}\scshape Chen Huanneng\\
+        }
+        \vspace*{0.1\textheight}
+        \centering
+            \begin{tikzpicture}[start chain=main going right,]
+                \node[on chain,align=center,draw=none] (a1){{\fontsize{12}{12}\calligra Update at} \\
+                {\Large \entoday}
+                }; 
+                \node[on chain,align=center,draw=none] (a2){\psvectorian[]{148}}; 
+                { [start branch=B going below]
+                \node[on chain,align=center,draw=none,scale=0.01](s1){};
+                \node[on chain,align=center,draw=none,](s2){};
+                \node[on chain,align=center,draw=none,scale=0.01](s3){}; 
+                }
+                \node[on chain,align=center,draw=none]  (a3){{\fontsize{12}{12}\calligra Final review by} \\
+                {\Large Revisor}
+                };          
+            \end{tikzpicture}
+        \end{center}}
+    \end{tcolorbox}
+}
+
+
+%%%%%%%%%%%%%%%%封面设计%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               COVER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+% 参考https://tex.stackexchange.com/questions/44151/page-numbering-removing-page-number-from-first-page
+
+\begin{document}
+
+\pagenumbering{gobble} % 取消页码
+\coverpage
+
+% 新增空白页方便打印
+\clearpage
+~
+\thispagestyle{empty}
+\clearpage
+
+\end{document}

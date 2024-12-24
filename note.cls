@@ -1,9 +1,7 @@
-% TODO: 增加封面样式
-% TODO: 修改标题页样式
 % TODO: 增加定理盒子
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{note}[2024-12-21 Template for notes]
+\ProvidesClass{note}[2024-12-24 Template for notes]
 
 % 如果不需要奇偶面不同的话切换下面两行的注释顺序，同样要修改fancyhdr的选项
 % \LoadClass[10pt, a4paper, fontset=none, oneside]{ctexbook}
@@ -14,14 +12,15 @@
 
 
 \RequirePackage[numbers, sort&compress, square]{natbib} % 优化参考文献引用
-\RequirePackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
+% \RequirePackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
 \RequirePackage{graphicx} % 插入图片
 \RequirePackage{geometry} % 设置页面参数
 \RequirePackage{unicode-math} % 配置 Unicode 数学字体
 \RequirePackage{amsmath} % 用于加载数学公式
-% \graphicspath{{figures/}{logo/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
-\RequirePackage[x11names, table]{xcolor} % 用于支持输出颜色
+\graphicspath{{images/}{cover/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
+% 参考https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
+\RequirePackage[dvipsnames, svgnames, x11names, table]{xcolor} % 用于支持输出颜色
 \RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
 \RequirePackage{tocloft} % 自定义目录样式
 \RequirePackage{lipsum} % 生成英文测试文本
@@ -35,6 +34,7 @@
 \RequirePackage{lmodern} % lmodern字体
 \RequirePackage{libertine} % Linux Libertine 字体系列(衬线字体)
 \RequirePackage{tikz} % 绘图
+\RequirePackage{pdfpages} % 导入PDF
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -113,6 +113,7 @@
 % 参考https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
 
 
+% title page
 \usetikzlibrary{calc}
 \tikzset{3D/.cd,
   x/.store in=\xx, x=0,
@@ -152,13 +153,25 @@
         (-\X/2, 0)   coordinate (A) ( \X/2, 0)   coordinate (B)
         ( \X/2,2*\X) coordinate (C) (-\X/2,2*\X) coordinate (D);
 
+        % Template not colored
         \filldraw [black!90] (B) -- (B') -- (C') -- (C)  -- cycle;
         \filldraw [black!80] (A) -- (A') -- (D') -- (D)  -- cycle;
         \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
         \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
 
+        % Template colored
+        % \filldraw [black!60!Gold1] (B) -- (B') -- (C') -- (C)  -- cycle;
+        % \filldraw [black!80] (A) -- (A') -- (D') -- (D)  -- cycle;
+        % \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
+        % \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
+
+        % Template not colored
         \node [text=white, shift={($(C)!0.5!(D)$)}, anchor=north,
         yslant=cos(\x)/5, font=\sf, scale=\sc*1.5] at (0,-.33*\X) {\n};
+
+        % Template colored
+        % \node [text=Gold1!70!black, shift={($(C)!0.5!(D)$)}, anchor=north,
+        % yslant=cos(\x)/5, font=\sf, scale=\sc*1.5] at (0,-.33*\X) {\n};
     }
     %
     \foreach \i [evaluate={\x=\i*30-10; \X=1; \n=int(5-\i); \xsl=\x/180}]
@@ -173,13 +186,25 @@
         (-\X/2, 0)           coordinate (A') ( \X/2, 0)           coordinate (B')
         ( \X/2, \X*2-\x/330) coordinate (C') (-\X/2, \X*2-\x/330) coordinate (D');
 
+        % Template not colored
         \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
         \filldraw [black!70] (A) -- (B)  -- (B') -- (A') -- cycle;
         \filldraw [black!90] (B) -- (B') -- (C') -- (C)  -- cycle;
         \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
 
+        % Template colored
+        % \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
+        % \filldraw [black!70] (A) -- (B)  -- (B') -- (A') -- cycle;
+        % \filldraw [black!60!Gold1] (B) -- (B') -- (C') -- (C)  -- cycle;
+        % \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
+
+        % Template not colored
         \node [text=white, shift={($(C)!0.5!(D)$)}, anchor=north, xslant=\xsl,
         yslant=cos \e/5, font=\sf, scale=1.5] at (0,-.33*\X) {\n};
+
+        % Template colored
+        % \node [text=Gold1!85!black, shift={($(C)!0.5!(D)$)}, anchor=north, xslant=\xsl,
+        % yslant=cos \e/5, font=\sf, scale=1.5] at (0,-.33*\X) {\n};
     }
     \end{tikzpicture}
 }
