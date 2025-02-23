@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 
 
+## [1.0.2] - 2025-02-23
+
+### Added
+
+- Usage examples.
+
+### Changed
+
+- Update cover epigraph.
+- Change formula, table and figure numbering method.
+- Change math formula presentation style.
+- Change title about reference and content from Chinese to English.
+
 ## [1.0.1] - 2024-12-24
 
 ### Added

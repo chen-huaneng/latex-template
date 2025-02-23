@@ -1,43 +1,68 @@
 % TODO: 增加定理盒子
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{note}[2024-12-24 Template for notes]
+\ProvidesClass{note}[2025-02-23 Template for notes]
 
 % 如果不需要奇偶面不同的话切换下面两行的注释顺序，同样要修改fancyhdr的选项
 % \LoadClass[10pt, a4paper, fontset=none, oneside]{ctexbook}
 \LoadClass[10pt, a4paper, fontset=none]{ctexbook}
 
+
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
 % 参考https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
 
 
-\RequirePackage[numbers, sort&compress, square]{natbib} % 优化参考文献引用
 % \RequirePackage{syntonly} % 编译LaTeX文件后不生成DVI或者PDF文档，只排查错误，要生成文档可以注释\syntaxonly命令
 % \syntaxonly
+% 图片
 \RequirePackage{graphicx} % 插入图片
-\RequirePackage{geometry} % 设置页面参数
-\RequirePackage{unicode-math} % 配置 Unicode 数学字体
-\RequirePackage{amsmath} % 用于加载数学公式
 \graphicspath{{images/}{cover/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
+% 数学公式
+\RequirePackage{amsmath} % 用于加载数学公式
+\RequirePackage{geometry} % 设置页面参数
 % 参考https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
 \RequirePackage[dvipsnames, svgnames, x11names, table]{xcolor} % 用于支持输出颜色
 \RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
 \RequirePackage{tocloft} % 自定义目录样式
-\RequirePackage{lipsum} % 生成英文测试文本
 \RequirePackage{fancyhdr} % 修改页眉页脚的格式
-\RequirePackage{gbt7714} % 参考文献样式
+\RequirePackage[sort&compress]{gbt7714} % 参考文献样式
 \RequirePackage{hyperref} % 超链接
 \RequirePackage{bookmark} % 生成PDF书签
-\RequirePackage{tocbibind} % 为目录、参考文献和索引生成目录项
+\RequirePackage[nottoc]{tocbibind} % 为目录、参考文献和索引生成目录项，禁止为目录生成目录项
 \RequirePackage{epigraph} % 排版引用
+% 字体
+% \RequirePackage{unicode-math} % 配置 Unicode 数学字体
 \RequirePackage[T1]{fontenc} % 改善文档中西欧语言的显示效果
 \RequirePackage{lmodern} % lmodern字体
 \RequirePackage{libertine} % Linux Libertine 字体系列(衬线字体)
 \RequirePackage{tikz} % 绘图
 \RequirePackage{pdfpages} % 导入PDF
+% 表格线
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%设置公式、表格、图片编号%%%%%%%%%%%%%%
+
+
+% 公式编号
+\numberwithin{equation}{chapter} % 公式编号绑定章节
+\renewcommand{\theequation}{\thechapter-\arabic{equation}} % 修改编号格式
+
+% 表格编号
+\numberwithin{table}{chapter} 
+\renewcommand{\thetable}{\thechapter-\arabic{table}}
+
+% 图片编号
+\numberwithin{figure}{chapter}
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}}
+
+
+%%%%%%%%%%%%%%%%设置公式、表格、图片编号%%%%%%%%%%%%%%
 
 
 
@@ -80,7 +105,7 @@
 ]
 
 % 具体设置参考unicode-math宏包
-\setmathfont{TeX Gyre DejaVu Math} % DejaVu风格数学Unicode字体
+% \setmathfont{TeX Gyre DejaVu Math} % DejaVu风格数学Unicode字体
 
 \linespread{1.25} % 修改行距
 
@@ -135,7 +160,7 @@
     {\large \@author}}              
 \makeatother
 \author{%
-    Chen Huaneng (Abel) \\  %%%% Your Name
+    \href{chen-huaneng.github.io}{\textcolor{black}{Chen Huaneng (Abel)}} \\  %%%% Your Name
     Xiamen University \\    %%%% Department Name
     \texttt{huanengchen@foxmail.com}\vspace{5pt} \\ %%% Your Email Address
     }
@@ -153,25 +178,13 @@
         (-\X/2, 0)   coordinate (A) ( \X/2, 0)   coordinate (B)
         ( \X/2,2*\X) coordinate (C) (-\X/2,2*\X) coordinate (D);
 
-        % Template not colored
         \filldraw [black!90] (B) -- (B') -- (C') -- (C)  -- cycle;
         \filldraw [black!80] (A) -- (A') -- (D') -- (D)  -- cycle;
         \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
         \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
 
-        % Template colored
-        % \filldraw [black!60!Gold1] (B) -- (B') -- (C') -- (C)  -- cycle;
-        % \filldraw [black!80] (A) -- (A') -- (D') -- (D)  -- cycle;
-        % \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
-        % \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
-
-        % Template not colored
         \node [text=white, shift={($(C)!0.5!(D)$)}, anchor=north,
         yslant=cos(\x)/5, font=\sf, scale=\sc*1.5] at (0,-.33*\X) {\n};
-
-        % Template colored
-        % \node [text=Gold1!70!black, shift={($(C)!0.5!(D)$)}, anchor=north,
-        % yslant=cos(\x)/5, font=\sf, scale=\sc*1.5] at (0,-.33*\X) {\n};
     }
     %
     \foreach \i [evaluate={\x=\i*30-10; \X=1; \n=int(5-\i); \xsl=\x/180}]
@@ -186,25 +199,13 @@
         (-\X/2, 0)           coordinate (A') ( \X/2, 0)           coordinate (B')
         ( \X/2, \X*2-\x/330) coordinate (C') (-\X/2, \X*2-\x/330) coordinate (D');
 
-        % Template not colored
         \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
         \filldraw [black!70] (A) -- (B)  -- (B') -- (A') -- cycle;
         \filldraw [black!90] (B) -- (B') -- (C') -- (C)  -- cycle;
         \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
 
-        % Template colored
-        % \filldraw [black!70] (C) -- (D)  -- (D') -- (C') -- cycle;
-        % \filldraw [black!70] (A) -- (B)  -- (B') -- (A') -- cycle;
-        % \filldraw [black!60!Gold1] (B) -- (B') -- (C') -- (C)  -- cycle;
-        % \filldraw [black]    (A) -- (B)  -- (C)  -- (D)  -- cycle;
-
-        % Template not colored
         \node [text=white, shift={($(C)!0.5!(D)$)}, anchor=north, xslant=\xsl,
         yslant=cos \e/5, font=\sf, scale=1.5] at (0,-.33*\X) {\n};
-
-        % Template colored
-        % \node [text=Gold1!85!black, shift={($(C)!0.5!(D)$)}, anchor=north, xslant=\xsl,
-        % yslant=cos \e/5, font=\sf, scale=1.5] at (0,-.33*\X) {\n};
     }
     \end{tikzpicture}
 }
@@ -215,27 +216,9 @@
 
 
 %%%%%%%%%%%%%%%%%Part设计%%%%%%%%%%%%%%%%%%%
-
-
-% 参考https://tex.stackexchange.com/questions/192851/redefine-part-style
-% \makeatletter
-% \titleformat{\part}[display]%
-%   {\Huge\scshape\filright}%
-%   {\partname~\thepart:}%
-%   {20pt}%
-%   {\thispagestyle{epigraph}}
-% \makeatother
-% \setlength\epigraphwidth{.6\textwidth}
-
-% 参考https://tex.stackexchange.com/questions/521981/modifying-part-style-in-documentclass-book
-% \titleformat{\part}[display]
-%   {\titlerule\vspace*{.8ex}\normalfont\Huge\scshape}
-%   {\partname~\thepart}
-%   {10pt}
-%   {\thispagestyle{epigraph}}
-%   [\titlerule]
-
 % 参考https://tex.stackexchange.com/questions/192838/part-heading-style
+
+
 \makeatletter
 \renewcommand\thepart{\arabic{part}}
 \def\@part[#1]#2{%
@@ -386,6 +369,7 @@
 %%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
 
 
+\renewcommand{\bibname}{References} % 修改参考文献标题
 \bibliographystyle{gbt7714-numerical} % 顺序编码制
 
 
@@ -414,6 +398,7 @@
 % 参考https://tex.stackexchange.com/questions/461216/remove-indentation-in-table-of-contents
 
 
+\renewcommand{\contentsname}{Contents} % 修改目录标题
 \CTEXsetup[name={,},number={\arabic{chapter}}]{chapter} % 修改中文章节标识为数字标识
 \CTEXsetup[name={,},number={\Roman{part}}]{part} % 修改中文部分标识为大写罗马字母标识
 \renewcommand{\cftdot}{$\cdot$} % 设置导引符为垂直居中的小圆点

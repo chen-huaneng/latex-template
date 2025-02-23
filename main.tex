@@ -17,9 +17,11 @@
 \begin{titlepage}
 \thispagestyle{empty} % 清除页脚页眉
 \noindent
-\titlefont Template for note\par
-\epigraph{Pure mathematics is on the whole distinctly more useful than applied. For what is useful above all is technique, and mathematical technique is taught mainly through pure mathematics.}%
-{\textit{London 1941}\\ \textsc{G. H. Hardy}}
+\titlefont Template for Notes\par
+\epigraph{Mira hacia el cielo, eres infinito\\
+Romperás el capullo, volarás tan alto\\
+Sigue avanzando, has llegado lejos}%
+{\textit{\href{https://cn.iamgem.com/revelacion/}{\textcolor{black}{Mira Hacia El Cielo}}\\ \textsc{G.E.M.}}}
 \null\vfill
 \vspace*{1cm}
 \noindent
@@ -59,72 +61,32 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
-% \input{frontmatter}
-
-\chapter{Frontmatter}
-\lipsum[5-10]
+\input{part/frontmatter.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            MAINMATTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 
-% 每个章节就是一个.tex文件，方便后续的调试
-% \input{chapter1}
-% \input{chapter2}
-% \input{chapter3}
-% \input{chapter4}
-% \input{chapter5}
-% \input{chapter6}
-
-\part{First Part}
-
-\chapter{Introduction}
-
-\section{Section 1.1}
-
-hello world!\cite{2015The} This is a test text line.\url{https://github.com/chen-huaneng} And this is another test text line.\href{https://github.com/chen-huaneng}{Github} Also a test text line.\hyperref[test]{Subsection 1.1.1}
-
-\lipsum[5-10]
-
-\subsection{Subsection 1.1.1}\label{test}
-
-\lipsum[5-10]
-
-\part{Second Part}
-
-\chapter{Column Generation}
-
-\lipsum[5-10]
-
-\section{Section 2.1}
-
-\lipsum[5-10]
+% 每个部分就是一个.tex文件，方便后续的调试
+\input{part/part1.tex}
+% \input{part/part2.tex}
+% \input{part/part3.tex}
+% \input{part/part4.tex}
+% \input{part/part5.tex}
+% \input{part/part6.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            BACKMATTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
-% \input{appendix}
+\input{part/backmatter.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            APPENDIX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter*{Appendix}
-% \addcontentsline{toc}{chapter}{Appendix}
-\chaptermark{Appendix}
-
-\lipsum[5-10]
-
-\section*{Hello World}
-\sectionmark{Hello World}
-
-\lipsum[10-20]
-
-\section{Section}
-
-\lipsum[5-10]
+\input{part/appendix.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            REFERENCES
