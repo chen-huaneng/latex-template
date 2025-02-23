@@ -76,12 +76,36 @@ FSTSP数学模型（部分）如下：
     $} \label{eq:fstsp-truck-mtz}
 \end{align}
 
-也可以如下表示：
+更简便的带颜色的公式展示：
 
 \begin{align}
-    \min \quad & t_{c + 1}  \label{eq:fstsp-obj}\\
-    \text{s.t.} \quad & \colorbox{constraint-bg}{$\displaystyle\sum_{\substack{i\in N_{0}\\i\neq j}}x_{ij}+\sum_{\substack{i\in N_{0}\\ i\neq j}}\sum_{\substack{k \in N_{+}\\ \langle i,j,k \rangle \in P}}y_{ijk}=1$}, \quad \forall j \in C \label{eq:fstsp-customer-visit}\\
-    \quad & \colorbox{yellow!30}{$\displaystyle\sum_{j\in N_{+}}x_{0j}=1$} \label{eq:fstsp-truck-start}\\
-    \quad & \sum_{i\in N_{0}}x_{i,c + 1}=1 \label{eq:fstsp-truck-return}\\
-    \quad & \colorbox{green!30}{$\displaystyle u_i - u_j + 1 \leq (c + 2)(1 - x_{ij})$}, \quad \forall i \in C, j \in \{N_{+}:j \neq i\} \label{eq:fstsp-truck-mtz}
+    \begin{coloredeq-purple}[eq:my_equation]
+    E = mc^2
+    \end{coloredeq-purple}\\
+    \begin{coloredeq-blue}[eq:my_equation_2]
+        a^2+b^2 = c^2
+    \end{coloredeq-blue}
 \end{align}
+
+\chapter{Box}
+
+\section{Box Examples}
+
+\begin{theorem}{勾股定理}{pythagoras}
+直角三角形斜边的平方等于两直角边的平方和：
+\[ a^2 + b^2 = c^2 \]
+\end{theorem}
+
+参见定理~\ref{thm:pythagoras}。
+
+\begin{lemma}{示例引理}{example-lemma}
+这是一个引理示例。
+\end{lemma}
+
+\begin{definition}{示例定义}{example-def}
+这是一个定义示例。
+\end{definition}
+
+\begin{model}{示例模型}{example-model}
+这是一个模型示例。
+\end{model}
