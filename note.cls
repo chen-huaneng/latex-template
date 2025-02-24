@@ -40,9 +40,10 @@
 \RequirePackage{tabularx}
 % 定理盒子
 \RequirePackage[most]{tcolorbox}
-\tcbuselibrary{theorems}
+\tcbuselibrary{theorems, skins, breakable}
 % 自定义环境
 \RequirePackage{environ}
+\RequirePackage{parskip} % 形成段落间的间距
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -70,6 +71,17 @@
 % \colorlet{name-2-front-color}{DodgerBlue!70}
 % \colorlet{name-3-background-color}{LavenderBlush}
 % \colorlet{name-3-front-color}{DeepPink!50!black}
+
+% 定理环境通用设置
+\tcbset{
+    breakablestyle/.style={
+        breakable, % 允许分页
+        enhanced jigsaw, % 启用增强型分页效果
+        before upper={\allowdisplaybreaks[4]},
+        pad at break=1mm, % 分页处间距
+        title after break=continued, % 分页后的标题
+    }
+}
 
 % 定义定理环境
 \newtcbtheorem[number within=chapter]{theorem}{Theorem}{
@@ -112,6 +124,7 @@
 
 % 定义模型环境
 \newtcbtheorem[number within=chapter]{model}{Model}{
+    breakablestyle,
     colback=model-background-color,
     colframe=model-front-color,
     fonttitle=\bfseries,
@@ -120,45 +133,8 @@
     rounded corners,
     drop fuzzy shadow,
     arc=1mm, % 圆角弧度大小
-    boxrule=0.5pt, % 边框线宽度
+    boxrule=0pt, % 边框线宽度
 }{model}
-
-% 未使用的环境
-% \newtcbtheorem[number within=chapter]{name-1}{Name-1}{
-%     colback=name-1-background-color,
-%     colframe=name-1-front-color,
-%     fonttitle=\bfseries,
-%     title={Name-1 \thetcbcounter},
-%     enhanced,
-%     rounded corners,
-%     drop fuzzy shadow,
-%     arc=1mm, % 圆角弧度大小
-%     boxrule=0pt, % 边框线宽度
-% }{name-1}
-%
-% \newtcbtheorem[number within=chapter]{name-2}{Name-2}{
-%     colback=name-2-background-color,
-%     colframe=name-2-front-color,
-%     fonttitle=\bfseries,
-%     title={Name-2 \thetcbcounter},
-%     enhanced,
-%     rounded corners,
-%     drop fuzzy shadow,
-%     arc=1mm, % 圆角弧度大小
-%     boxrule=0pt, % 边框线宽度
-% }{name-2}
-%
-% \newtcbtheorem[number within=chapter]{name-3}{Name-3}{
-%     colback=name-3-background-color,
-%     colframe=name-3-front-color,
-%     fonttitle=\bfseries,
-%     title={Name-3 \thetcbcounter},
-%     enhanced,
-%     rounded corners,
-%     drop fuzzy shadow,
-%     arc=1mm, % 圆角弧度大小
-%     boxrule=0pt, % 边框线宽度
-% }{name-3}
 
 
 %%%%%%%%%%%%%%%%定理盒子%%%%%%%%%%%%%%%%%%%%
