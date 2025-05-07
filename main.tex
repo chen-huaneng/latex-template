@@ -1,66 +1,38 @@
 %! TeX program = xelatex
+
+% 参考 https://blog.csdn.net/weixinhum/article/details/121056868, https://zhuanlan.zhihu.com/p/357926809, https://zhuanlan.zhihu.com/p/55043560, https://www.zhihu.com/question/264248150
+% \special{dvipdfmx:config z 0} %取消PDF压缩，加快速度，最终版本生成的时候最好把这句话注释掉
+
 \documentclass{note}
 
 \begin{document}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               COVER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
 % 参考https://tex.stackexchange.com/questions/23766/suppress-fancy-header-and-footer-on-first-page-only
 % 参考https://tex.stackexchange.com/questions/57158/centered-title-page-in-twoside-report
+
 % Cover page
-\clearpage
-\includepdf{cover/cover.pdf}
-\thispagestyle{empty}
-\clearpage
+\includepdf[pages=-, fitpaper]{cover/cover.pdf}
 
 % Title page
-\begin{titlepage}
-\thispagestyle{empty} % 清除页脚页眉
-\noindent
-\titlefont Template for Notes\par
-\epigraph{Mira hacia el cielo, eres infinito\\
-Romperás el capullo, volarás tan alto\\
-Sigue avanzando, has llegado lejos}%
-{\textit{\href{https://cn.iamgem.com/revelacion/}{\textcolor{black}{Mira Hacia El Cielo}}\\ \textsc{G.E.M.}}}
-\null\vfill
-\vspace*{1cm}
-\noindent
-\hfill
-\begin{minipage}{0.5\linewidth}
-    \begin{flushright}
-        \printauthor
-    \end{flushright}
-\end{minipage}
-%
-\begin{minipage}{0.02\linewidth}
-    \rule{1pt}{60pt}
-\end{minipage}
-\titlepagedecoration
-
-% 增加空白页方便打印
-% 参考https://tex.stackexchange.com/questions/508315/add-unnumbered-blank-page-after-cover-page-but-before-title-page-and-book
-\clearpage
-~
-\thispagestyle{empty}
-\clearpage
-
-\end{titlepage}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                           TABLE OF CONTENTS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 生成目录
-{
-    \pagenumbering{Alph} % 目录页码编号为大写字母
-    \hypersetup{linkcolor=red!65!black} % 设置局部目录超链接颜色
-    \tableofcontents
-}
+\input{title-page/title-page.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            FRONTMATTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
+% Table of contents
+{
+    % \pagenumbering{Alph} % 目录页码编号为大写字母
+    % \hypersetup{linkcolor=red!65!black} % 设置局部目录超链接颜色
+    \hypersetup{linkcolor=black} % 设置局部目录超链接颜色
+    \tableofcontents
+}
+
+% Preface
 \input{part/frontmatter.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,11 +42,13 @@ Sigue avanzando, has llegado lejos}%
 
 % 每个部分就是一个.tex文件，方便后续的调试
 \input{part/part1.tex}
-% \input{part/part2.tex}
-% \input{part/part3.tex}
-% \input{part/part4.tex}
-% \input{part/part5.tex}
-% \input{part/part6.tex}
+\input{part/part2.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\input{part/appendix.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            BACKMATTER
@@ -84,13 +58,14 @@ Sigue avanzando, has llegado lejos}%
 \input{part/backmatter.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                            APPENDIX
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{part/appendix.tex}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                            REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliography{references}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            INDEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 显示索引页的首字母，参考 https://tex.stackexchange.com/questions/53986/package-makeidx-print-first-letter-for-each-group-of-keys
+\printindex
 
 \end{document}

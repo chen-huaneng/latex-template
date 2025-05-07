@@ -1,0 +1,33 @@
+% Title page
+\definecolor{titlepagetextcolor}{RGB}{3, 83, 40} % 标题页文字颜色
+\begin{titlepage}
+\thispagestyle{empty} % 清除页脚页眉
+\noindent
+\titlefont \textcolor{titlepagetextcolor}{Template for Notes}\par
+\epigraph{Mira hacia el cielo, eres infinito\\
+Romperás el capullo, volarás tan alto\\
+Sigue avanzando, has llegado lejos}%
+{\textit{\href{https://cn.iamgem.com/revelacion/}{\textcolor{black}{Mira Hacia El Cielo}}\\ \textsc{G.E.M.}}}
+\null\vfill
+\vspace*{1cm}
+\noindent
+\hfill
+\begin{minipage}{0.5\linewidth}
+    \begin{flushright}
+        \printauthor
+    \end{flushright}
+\end{minipage}
+%
+\begin{minipage}{0.02\linewidth}
+    \rule{1pt}{60pt}
+\end{minipage}
+\titlepagedecoration
+
+% 增加空白页方便打印
+% 参考https://tex.stackexchange.com/questions/508315/add-unnumbered-blank-page-after-cover-page-but-before-title-page-and-book
+\clearpage
+~
+\thispagestyle{empty}
+\clearpage
+
+\end{titlepage}

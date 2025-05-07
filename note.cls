@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{note}[2025-02-23 Template for notes]
+\ProvidesClass{note}[2025-02-25 Template for notes]
 
 % 如果不需要奇偶面不同的话切换下面两行的注释顺序，同样要修改fancyhdr的选项
 % \LoadClass[10pt, a4paper, fontset=none, oneside]{ctexbook}
@@ -17,15 +17,22 @@
 \graphicspath{{images/}{cover/}} % 用于存放图片的目录figures和logo，这样引用图片的时候就不需要指定目录
 % 数学公式
 \RequirePackage{amsmath} % 用于加载数学公式
+\RequirePackage{mathrsfs} % 用于加载花体字母
+\RequirePackage{amssymb} % 用于加载数学字符
+\RequirePackage{mathtools}
 \RequirePackage{geometry} % 设置页面参数
-% 参考https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
+% 参考 https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
 \RequirePackage[dvipsnames, svgnames, x11names, table]{xcolor} % 用于支持输出颜色
 \RequirePackage{titlesec} % 修改Chapter和Section章节标题的格式
 \RequirePackage{tocloft} % 自定义目录样式
 \RequirePackage{fancyhdr} % 修改页眉页脚的格式
+% 引用、索引、超链接和参考文献
 \RequirePackage[sort&compress]{gbt7714} % 参考文献样式
 \RequirePackage{hyperref} % 超链接
+\RequirePackage{makeidx} % 索引
+\RequirePackage[noabbrev]{cleveref} % 多公式引用，必须放在hyperref包的后面，参考 https://tex.stackexchange.com/questions/314217/how-i-can-refer-multiple-equation-in-latex
 \RequirePackage{bookmark} % 生成PDF书签
+% 目录
 \RequirePackage[nottoc]{tocbibind} % 为目录、参考文献和索引生成目录项，禁止为目录生成目录项
 \RequirePackage{epigraph} % 排版引用
 % 字体
@@ -35,15 +42,22 @@
 \RequirePackage{libertine} % Linux Libertine 字体系列(衬线字体)
 \RequirePackage{tikz} % 绘图
 \RequirePackage{pdfpages} % 导入PDF
-% 表格线
+% 表格
 \RequirePackage{booktabs}
-\RequirePackage{tabularx}
+\RequirePackage{tabularx} % 表格自动换行，调整表格宽度 
+\RequirePackage{makecell} % 单元格内换行
+\RequirePackage{threeparttable} % 给表格添加脚注，参考 https://tex.stackexchange.com/questions/6090/clickable-table-footnote
+\RequirePackage{ltablex} % 跨页表格
 % 定理盒子
 \RequirePackage[most]{tcolorbox}
 \tcbuselibrary{theorems, skins, breakable}
 % 自定义环境
 \RequirePackage{environ}
 \RequirePackage{parskip} % 形成段落间的间距
+% 代码环境
+\RequirePackage{minted} % 代码环境
+% 算法、伪代码环境
+\RequirePackage[linesnumbered, ruled, longend, lined]{algorithm2e}
 
 
 %%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
@@ -56,21 +70,29 @@
 % 定理盒子配色
 \colorlet{theorem-background-color}{Honeydew}
 \colorlet{theorem-front-color}{ForestGreen!60!black}
+
+% 引理盒子配色
 \colorlet{lemma-background-color}{LemonChiffon}
 \colorlet{lemma-front-color}{Goldenrod!70}
+
+% 定义盒子配色
 \colorlet{definition-background-color}{AliceBlue}
 \colorlet{definition-front-color}{SteelBlue!70}
 
+% 模型盒子配色
 \colorlet{model-background-color}{Lavender!8!white}
 \colorlet{model-front-color}{RoyalPurple!70!black}
 
+% 代码盒子配色
+\colorlet{code-background-color}{LavenderBlush}
+\colorlet{code-front-color}{DeepPink!50!black}
+
+
 % 配好颜色未使用的浅色系方案
-% \colorlet{name-1-background-color}{Coral!10!white}
-% \colorlet{name-1-front-color}{Coral!70}
-% \colorlet{name-2-background-color}{SkyBlue!8!white}
-% \colorlet{name-2-front-color}{DodgerBlue!70}
-% \colorlet{name-3-background-color}{LavenderBlush}
-% \colorlet{name-3-front-color}{DeepPink!50!black}
+% \colorlet{name-background-color}{SkyBlue!8!white}
+% \colorlet{name-front-color}{DodgerBlue!70}
+% \colorlet{name-background-color}{Coral!10!white}
+% \colorlet{name-front-color}{Coral!70}
 
 % 定理环境通用设置
 \tcbset{
@@ -79,7 +101,7 @@
         enhanced jigsaw, % 启用增强型分页效果
         before upper={\allowdisplaybreaks[4]},
         pad at break=1mm, % 分页处间距
-        title after break=continued, % 分页后的标题
+        title after break=\thetcbcounter\text{ (continued)}, % 分页后的标题
     }
 }
 
@@ -94,6 +116,7 @@
     drop fuzzy shadow,        % 阴影效果
     arc=1mm, % 圆角弧度大小
     boxrule=0pt, % 边框线宽度
+    title after break=\text{Theorem }\thetcbcounter\text{ (continued)}, % 分页后的标题
 }{thm} % 定义交叉引用的前缀，如\ref{thm:label}
 
 % 定义引理环境
@@ -107,6 +130,7 @@
     drop fuzzy shadow,
     arc=1mm, % 圆角弧度大小
     boxrule=0pt, % 边框线宽度
+    title after break=\text{Lemma }\thetcbcounter\text{ (continued)}, % 分页后的标题
 }{lem}
 
 % 定义定义环境
@@ -120,6 +144,7 @@
     drop fuzzy shadow,
     arc=1mm, % 圆角弧度大小
     boxrule=0pt, % 边框线宽度
+    title after break=\text{Definition }\thetcbcounter\text{ (continued)}, % 分页后的标题
 }{def}
 
 % 定义模型环境
@@ -134,7 +159,23 @@
     drop fuzzy shadow,
     arc=1mm, % 圆角弧度大小
     boxrule=0pt, % 边框线宽度
+    title after break=\text{Model }\thetcbcounter\text{ (continued)}, % 分页后的标题
 }{model}
+
+% 定义代码环境
+\newtcbtheorem[number within=chapter]{code}{Code}{
+    breakablestyle,
+    colback=code-background-color,
+    colframe=code-front-color,
+    fonttitle=\bfseries,
+    title={Code \thetcbcounter},
+    enhanced,
+    rounded corners,
+    drop fuzzy shadow,
+    arc=1mm, % 圆角弧度大小
+    boxrule=0pt, % 边框线宽度
+    title after break=\text{Code }\thetcbcounter\text{ (continued)}, % 分页后的标题
+}{code}
 
 
 %%%%%%%%%%%%%%%%定理盒子%%%%%%%%%%%%%%%%%%%%
@@ -204,9 +245,16 @@
     BoldFont=FZHTJW.TTF, % 设置粗体为方正黑体
     ItalicFont=FZKTJW.TTF, % 设置斜体为方正楷体
 ]
-\setCJKsansfont{FZHTJW.TTF}[Path=./fonts/] % 设置无衬线字体为方正黑体
-\setCJKmonofont{FZFSJW.TTF}[Path=./fonts/] % 设置等宽字体为方正仿宋
-
+\setCJKsansfont{FZHTJW.TTF}[ % 设置无衬线字体为方正黑体
+    Path=./fonts/,
+    AutoFakeSlant=0.2, % 生成斜体效果
+    AutoFakeBold=1.5,  % 生成粗体效果
+]
+\setCJKmonofont{FZFSJW.TTF}[ % 设置等宽字体为方正仿宋
+    Path=./fonts/,
+    AutoFakeSlant=0.2, % 生成斜体效果
+    AutoFakeBold=1.5,  % 生成粗体效果
+] 
 % 英文字体，具体设置参考fontspec宏包
 % \setmainfont{CaskaydiaCoveNerdFont}[ % 设置英文主字体为CaskaydiaCove Nerd Font
 %     Path=./fonts/, % 指定字体文件所在的目录
@@ -266,6 +314,7 @@
 %%%%%%%%%%%%%%%%封面设计%%%%%%%%%%%%%%%%%%%%
 % 参考https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
 
+\definecolor{titlepagetextcolor}{RGB}{3, 83, 40} % 标题页文字颜色
 
 % title page
 \usetikzlibrary{calc}
@@ -289,7 +338,7 @@
     {\large \@author}}              
 \makeatother
 \author{%
-    \href{chen-huaneng.github.io}{\textcolor{black}{Chen Huaneng (Abel)}} \\  %%%% Your Name
+    \href{chen-huaneng.github.io}{\bfseries\textcolor{titlepagetextcolor}{Chen Huaneng (Abel)}} \\  %%%% Your Name
     Xiamen University \\    %%%% Department Name
     \texttt{huanengchen@foxmail.com}\vspace{5pt} \\ %%% Your Email Address
     }
@@ -348,6 +397,9 @@
 % 参考https://tex.stackexchange.com/questions/192838/part-heading-style
 
 
+% \definecolor{partcolor}{red!65!black} % 设置part标题颜色
+\definecolor{partcolor}{RGB}{3, 83, 40} % 设置part标题颜色
+\definecolor{parttextcolor}{RGB}{0, 0, 0} % 设置part标题文字颜色
 \makeatletter
 \renewcommand\thepart{\arabic{part}}
 \def\@part[#1]#2{%
@@ -366,22 +418,22 @@
     \vbox{%
       \hsize=7mm%
       \begin{tabular}{@{}p{7mm}@{}}
-        \makebox[7mm]{\strut\large\partname}\\
-        \makebox[7mm]{\cellcolor{red!65!black}\Huge\color{white}\bfseries\strut\thepart\rule[-4cm]{0pt}{4cm}}%
+        \makebox[7mm]{\strut\large\textcolor{partcolor}{\partname}}\\
+        \makebox[7mm]{\cellcolor{partcolor}\Huge\color{white}\bfseries\strut\thepart\rule[-4cm]{0pt}{4cm}}%
       \end{tabular}%
-      \makebox(0,0){\color{red!65!black}\setlength{\fboxrule}{2pt}\put(-10,-100){\fbox{\phantom{\rule[-4cm]{7mm}{4cm}}}}}
+      \makebox(0,0){\color{partcolor}\setlength{\fboxrule}{2pt}\put(-10,-100){\fbox{\phantom{\rule[-4cm]{7mm}{4cm}}}}}
       }%
     \kern-2pt
     \vbox to 0pt{%
        \tabular[t]{@{}p{1cm}p{\dimexpr\hsize-2.1cm}@{}}\hlineforpart
-          & \Huge\itshape\bfseries\rule{0pt}{1.5\ht\strutbox}#1\endtabular}%
+          & \Huge\itshape\bfseries\rule{0pt}{1.5\ht\strutbox}\textcolor{parttextcolor}{#1}\endtabular}%
     }%
   \fussy % 恢复排版要求
   \cleardoublepage
  \vskip 100\p@
 }
 % Define a new command for the hline with specific color and thickness
-\newcommand{\hlineforpart}{\noalign {\ifnum 0=`}\fi \color{red!65!black}\hrule height 1pt depth 0pt \ifnum 0=`{\fi}}
+\newcommand{\hlineforpart}{\noalign {\ifnum 0=`}\fi \color{partcolor}\hrule height 1pt depth 0pt \ifnum 0=`{\fi}}
 \makeatother
 
 
@@ -393,27 +445,33 @@
 % 参考：https://stackoverflow.com/questions/78868366/chapter-title-style
 
 
+% 定义颜色
+\definecolor{chaptercolor}{RGB}{171, 217, 179} % 设置章节标题颜色
+\definecolor{chaptertextcolor}{RGB}{3, 83, 40} % 设置章节标题文字颜色
+
 % 设置章节编号的字体样式
 \newcommand{\chapnumfont}{%     % define font for chapter number
     \usefont{T1}{pnc}{b}{n}%      % choose New Chancery, bold, normal shape
     \fontsize{100}{25}%          % font size 100pt, baselineskip 25pt
     \selectfont%                  % activate font
 }
-\colorlet{chapnumcol}{red!75!black}  % color for chapter number
+\colorlet{chapnumcol}{chaptercolor}  % color for chapter number
 
 % 定义带编号的章节标题样式，具体设置参考titlesec宏包
 \titleformat{name=\chapter}[display]
 {\filleft\bfseries}
 {\filleft\chapnumfont\textcolor{chapnumcol}{\thechapter}}
 {0pt}
-{\Huge}
+{\Huge\textcolor{chaptertextcolor}} % 设置章节标题文字颜色
+[{\color{chaptertextcolor}\titlerule[1pt]}]
 
 % 定义不带编号的章节标题样式，具体设置参考titlesec宏包
 \titleformat{name=\chapter,numberless}[display]
 {\filright\bfseries}
 {\filright}
 {0pt}
-{\Huge}
+{\Huge\textcolor{chaptertextcolor}} % 设置章节标题文字颜色
+[{\color{chaptertextcolor}\titlerule[1pt]}]
 
 % 定义章节和正文等位置的距离，具体设置参考titlesec宏包
 \titlespacing{\chapter}{0pt}{0pt}{\baselineskip}
@@ -428,12 +486,15 @@
 % 有关颜色的部分参考xcolor宏包
 
 
+% 定义颜色
+\definecolor{sectioncolor}{RGB}{3, 83, 40} % 设置Section标题颜色
+
 % 定义带编号的Section样式，具体设置参考titlesec宏包
 \titleformat{name=\section}
     {\Large\bfseries}
-    {\thesection}
+    {\textcolor{sectioncolor}\thesection}
     {1em}
-    {}
+    {\textcolor{sectioncolor}}
     % [{\color{DeepPink4}\titlerule[1pt]}]
 
 % 定义带不编号的Section样式，具体设置参考titlesec宏包
@@ -441,23 +502,25 @@
     {\Large\bfseries}
     {}
     {1em}
-    {}
+    {\textcolor{sectioncolor}}
     % [{\color{DeepPink4}\titlerule[1pt]}]
 
 % 定义带编号的Subsection样式，具体设置参考titlesec宏包
 \titleformat{name=\subsection}
-    {\Large\bfseries}
-    {\thesubsection}
+    {\large\bfseries}
+    {\itshape\textcolor{sectioncolor}\thesubsection}
     {1em}
-    {}
+    % {\itshape}
+    {\itshape\textcolor{sectioncolor}}
     % [{\color{HotPink4}\titlerule[0.8pt]}]
 
 % 定义不带编号的Subsection样式，具体设置参考titlesec宏包
 \titleformat{name=\subsection, numberless}
-    {\Large\bfseries}
+    {\large\bfseries}
     {}
     {1em}
-    {}
+    % {\itshape}
+    {\itshape\textcolor{sectioncolor}}
     % [{\color{HotPink4}\titlerule[0.8pt]}]
 
 
@@ -498,7 +561,7 @@
 %%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
 
 
-\renewcommand{\bibname}{References} % 修改参考文献标题
+\renewcommand{\bibname}{\bfseries References} % 修改参考文献标题
 \bibliographystyle{gbt7714-numerical} % 顺序编码制
 
 
@@ -513,6 +576,7 @@
     bookmarksopen=true, % 启用书签
     colorlinks=true, % 启用颜色
     linkcolor=red, % 内部链接的颜色
+    linktoc=all, % 设置目录中的页码和标题都能够跳转
     citecolor=orange, % 引用链接的颜色
     urlcolor=cyan, % 外部链接的颜色
 }
@@ -523,11 +587,12 @@
 
 
 %%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
-% 参考https://coffeelize.top/posts/LaTeX-Catalog-Study-Notes.html
-% 参考https://tex.stackexchange.com/questions/461216/remove-indentation-in-table-of-contents
+% 参考 https://coffeelize.top/posts/LaTeX-Catalog-Study-Notes.html
+% 参考 https://tex.stackexchange.com/questions/461216/remove-indentation-in-table-of-contents
 
 
-\renewcommand{\contentsname}{Contents} % 修改目录标题
+\definecolor{TOCCOLOR}{RGB}{3, 83, 40} % 设置目录标题颜色
+\renewcommand{\contentsname}{\bfseries\textcolor{TOCCOLOR}{Contents}} % 修改目录标题
 \CTEXsetup[name={,},number={\arabic{chapter}}]{chapter} % 修改中文章节标识为数字标识
 \CTEXsetup[name={,},number={\Roman{part}}]{part} % 修改中文部分标识为大写罗马字母标识
 \renewcommand{\cftdot}{$\cdot$} % 设置导引符为垂直居中的小圆点
@@ -543,5 +608,74 @@
 \setlength{\cftsubsecindent}{15pt} % Indent for \subsection
 % \setlength{\cftsubsubsecindent}{0pt} % Remove indent for \subsubsection
 
+\renewcommand{\appendixname}{Appendix} % 修改附录标题
+
 
 %%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%索引设计%%%%%%%%%%%%%%%%%%%
+
+
+\renewcommand{\indexname}{Index} % 修改索引标题
+\makeindex % 开启索引的收集
+
+
+%%%%%%%%%%%%%%%%%索引设计%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%代码环境%%%%%%%%%%%%%%%%%%%
+% 参考 minted 宏包文档
+
+
+% 重新设置代码行号样式
+\renewcommand{\theFancyVerbLine}{
+\sffamily
+\textcolor{gray}{
+\footnotesize\oldstylenums{
+\arabic{FancyVerbLine}}}}
+
+\renewcommand{\listoflistingscaption}{\bfseries\textcolor{TOCCOLOR}{List of Code}} % 修改代码列表标题
+\renewcommand{\listingscaption}{Code} % 修改代码标题
+
+% 设置代码环境
+\setminted{
+    % style=default, % 设置代码风格，可选的代码风格参考： https://pygments.org/styles/
+    numbers=left, % 显示行号
+    numbersep=2pt, % 行号与代码的距离
+    mathescape, % 允许在代码注释中使用数学公式
+    % bgcolor=Beige, % 设置背景颜色
+    % breakanywhere, % 允许代码在任意位置断行，似乎会导致inline代码不显示内容
+    breaklines, % 允许代码自动断行 
+    fontsize=\footnotesize, % 设置代码字体大小
+    frame=leftline, % 设置代码框
+    framerule=0.5pt, % 设置代码框线宽
+    highlightcolor=Beige, % 设置代码行高亮颜色
+    resetmargins, % 重置代码边距
+}
+
+% 设置行内代码环境
+\setmintedinline{
+    fontsize=\footnotesize, % 设置代码字体大小
+    bgcolor=Beige, % 设置背景颜色
+    bgcolorpadding=0.2em, % 设置背景颜色的内边距
+    breakanywhereinlinestretch=0.01em, % 允许行内代码在任意位置断行
+    breaklines, % 允许行内代码自动断行
+}
+
+
+%%%%%%%%%%%%%%%%%代码环境%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%算法、伪代码环境%%%%%%%%%%%%%%%%%%%
+% 参考 algorithm2e 宏包文档
+
+
+\DontPrintSemicolon % 不打印分号
+\setlength{\algomargin}{2em} % 设置算法缩进使得行号在线框内
+
+
+%%%%%%%%%%%%%%%%%算法、伪代码环境%%%%%%%%%%%%%%%%%%%
