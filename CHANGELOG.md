@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 
 
+## [1.0.4] - 2025-08-12
+
+### Changed
+
+- Make color box breakable.
+- Update format of code comments.
+
 ## [1.0.3] - 2025-02-23
 
 ### Added

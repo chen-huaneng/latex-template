@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{note}[2025-02-25 Template for notes]
+\ProvidesClass{note}[2025-08-11 Template for notes]
 
 % 如果不需要奇偶面不同的话切换下面两行的注释顺序，同样要修改fancyhdr的选项
 % \LoadClass[10pt, a4paper, fontset=none, oneside]{ctexbook}
@@ -60,12 +60,7 @@
 \RequirePackage[linesnumbered, ruled, longend, lined]{algorithm2e}
 
 
-%%%%%%%%%%%%%%%%导入宏包%%%%%%%%%%%%%%%%%%%%
-
-
-
 %%%%%%%%%%%%%%%%定理盒子%%%%%%%%%%%%%%%%%%%%
-
 
 % 定理盒子配色
 \colorlet{theorem-background-color}{Honeydew}
@@ -178,12 +173,7 @@
 }{code}
 
 
-%%%%%%%%%%%%%%%%定理盒子%%%%%%%%%%%%%%%%%%%%
-
-
-
 %%%%%%%%%%%%%%%%自定义环境%%%%%%%%%%%%%%%%%%%%
-
 
 % 配色选择
 \definecolor{shallow-purple}{rgb}{0.9,0.9,1} % 浅紫色
@@ -212,12 +202,9 @@
 \defineColoredEq{red}{}
 
 
-%%%%%%%%%%%%%%%%自定义环境%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%设置公式、表格、图片编号%%%%%%%%%%%%%%
-
+%----------------------------------------------------%
+%           设置公式、表格、图片编号                 %
+%----------------------------------------------------%
 
 % 公式编号
 \numberwithin{equation}{chapter} % 公式编号绑定章节
@@ -232,12 +219,9 @@
 \renewcommand{\thefigure}{\thechapter-\arabic{figure}}
 
 
-%%%%%%%%%%%%%%%%设置公式、表格、图片编号%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
-
+%----------------------------------------------------%
+%                  设置字体                          %
+%----------------------------------------------------%
 
 % 中文字体，具体设置参考ctex宏包
 \setCJKmainfont{FZSSJW.TTF}[ % 设置中文主字体为方正书宋 
@@ -287,12 +271,9 @@
 \linespread{1.25} % 修改行距
 
 
-%%%%%%%%%%%%%%%%设置字体%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
-
+%----------------------------------------------------%
+%                  页面设置                          %
+%----------------------------------------------------%
 
 % 具体设置参考geometry宏包
 \geometry{
@@ -307,11 +288,9 @@
 }
 
 
-%%%%%%%%%%%%%%%%页面设置%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%封面设计%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  封面设计                          %
+%----------------------------------------------------%
 % 参考https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
 
 \definecolor{titlepagetextcolor}{RGB}{3, 83, 40} % 标题页文字颜色
@@ -389,13 +368,10 @@
 }
 
 
-%%%%%%%%%%%%%%%%封面设计%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%Part设计%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  Part 设计                         %
+%----------------------------------------------------%
 % 参考https://tex.stackexchange.com/questions/192838/part-heading-style
-
 
 % \definecolor{partcolor}{red!65!black} % 设置part标题颜色
 \definecolor{partcolor}{RGB}{3, 83, 40} % 设置part标题颜色
@@ -437,13 +413,10 @@
 \makeatother
 
 
-%%%%%%%%%%%%%%%%%Part设计%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%Chapter设计%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  Chapter 设计                      %
+%----------------------------------------------------%
 % 参考：https://stackoverflow.com/questions/78868366/chapter-title-style
-
 
 % 定义颜色
 \definecolor{chaptercolor}{RGB}{171, 217, 179} % 设置章节标题颜色
@@ -477,14 +450,11 @@
 \titlespacing{\chapter}{0pt}{0pt}{\baselineskip}
 
 
-%%%%%%%%%%%%%%%%Chapter设计%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%Section设计%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  Section 设计                      %
+%----------------------------------------------------%
 % 如果要在部分标题修改横线的长度可以参考：https://tex.stackexchange.com/questions/299546/length-of-titlerule
 % 有关颜色的部分参考xcolor宏包
-
 
 % 定义颜色
 \definecolor{sectioncolor}{RGB}{3, 83, 40} % 设置Section标题颜色
@@ -524,13 +494,10 @@
     % [{\color{HotPink4}\titlerule[0.8pt]}]
 
 
-%%%%%%%%%%%%%%%%Section设计%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  页脚和页眉                        %
+%----------------------------------------------------%
 % 参考：https://tex.stackexchange.com/questions/732462/chapter-number-in-the-header-with-chapter/732464?noredirect=1#comment1824660_732464 
-
 
 % 详细参数参考fancyhdr宏包
 \renewcommand{\chaptermark}[1]{\markboth{\bfseries\uppercase{#1}}{}} % 在双面打印时将章节标题（#1）标记在偶数页的页眉（左边），而奇数页的页眉保持为空。
@@ -554,23 +521,17 @@
 \renewcommand{\footrulewidth}{0pt} % 去掉页脚的横线
 
 
-%%%%%%%%%%%%%%%页脚页眉设计%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
-
+%----------------------------------------------------%
+%                  参考文献                          %
+%----------------------------------------------------%
 
 \renewcommand{\bibname}{\bfseries References} % 修改参考文献标题
 \bibliographystyle{gbt7714-numerical} % 顺序编码制
 
 
-%%%%%%%%%%%%%%%参考文献设计%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%超链接设计%%%%%%%%%%%%%%%%%%
-
+%----------------------------------------------------%
+%                  超链接                            %
+%----------------------------------------------------%
 
 \hypersetup{
     bookmarksopen=true, % 启用书签
@@ -582,14 +543,12 @@
 }
 
 
-%%%%%%%%%%%%%%%%超链接设计%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  目录                              %
+%----------------------------------------------------%
 % 参考 https://coffeelize.top/posts/LaTeX-Catalog-Study-Notes.html
 % 参考 https://tex.stackexchange.com/questions/461216/remove-indentation-in-table-of-contents
-
+% 参考 https://tex.stackexchange.com/questions/3177/how-to-change-the-numbering-of-part-chapter-section-to-alphabetical-r
 
 \definecolor{TOCCOLOR}{RGB}{3, 83, 40} % 设置目录标题颜色
 \renewcommand{\contentsname}{\bfseries\textcolor{TOCCOLOR}{Contents}} % 修改目录标题
@@ -599,36 +558,23 @@
 \renewcommand{\cftdotsep}{1.5} % 设置点间距
 \renewcommand\cftpartdotsep{2} % 设置部分与页码间的导引符
 \renewcommand\cftchapdotsep{2} % 设置章节标题与页码间的导引符
+\renewcommand\thepart{\Roman{part}} % 设置\part编号格式为大写罗马字母
 \setlength{\cftbeforesecskip}{0pt} % 二级标题间隔
 \setcounter{secnumdepth}{3} % 设置目录深度至三级标题
 % \setlength{\cftbeforechapskip}{5pt} % 一级标题（章节标题）前间隔
 \renewcommand{\cftchapafterpnum}{\vspace{5pt}} % 一级标题（章节标题）后间隔
-\setlength{\cftchapindent}{0pt} % Remove indent for \section
+\setlength{\cftchapindent}{0pt} % Indent for \chapter
 \setlength{\cftsecindent}{15pt} % Indent for \section
-\setlength{\cftsubsecindent}{15pt} % Indent for \subsection
+\setlength{\cftsubsecindent}{20pt} % Indent for \subsection
 % \setlength{\cftsubsubsecindent}{0pt} % Remove indent for \subsubsection
 
 \renewcommand{\appendixname}{Appendix} % 修改附录标题
 
 
-%%%%%%%%%%%%%%%%%目录设计%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%索引设计%%%%%%%%%%%%%%%%%%%
-
-
-\renewcommand{\indexname}{Index} % 修改索引标题
-\makeindex % 开启索引的收集
-
-
-%%%%%%%%%%%%%%%%%索引设计%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%代码环境%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                  代码环境                          %
+%----------------------------------------------------%
 % 参考 minted 宏包文档
-
 
 % 重新设置代码行号样式
 \renewcommand{\theFancyVerbLine}{
@@ -666,16 +612,19 @@
 }
 
 
-%%%%%%%%%%%%%%%%%代码环境%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%算法、伪代码环境%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                 算法和伪代码环境                   %
+%----------------------------------------------------%
 % 参考 algorithm2e 宏包文档
-
 
 \DontPrintSemicolon % 不打印分号
 \setlength{\algomargin}{2em} % 设置算法缩进使得行号在线框内
 
 
-%%%%%%%%%%%%%%%%%算法、伪代码环境%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------%
+%                         边注环境                   %
+%----------------------------------------------------%
+
+% 设置边注的字体大小
+\let\oldmarginpar\marginpar
+\renewcommand{\marginpar}[1]{\oldmarginpar{\footnotesize #1}}
