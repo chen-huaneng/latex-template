@@ -1,0 +1,311 @@
+%===================================
+% note-setup-leftsidebox.tex
+% huanengchen@foxmail.com 2025-08-12
+%===================================
+% 参考：https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
+
+%===================================
+% 页面和间距
+%===================================
+
+\usepackage[a4paper, margin=1in]{geometry} % 具体设置参考 geometry 宏包
+\setlength{\parindent}{0pt} % 取消首行缩进
+\usepackage{parskip} % 形成段落间的间距
+\linespread{1.25} % 修改行距
+
+%===================================
+% 编辑体验
+%===================================
+
+\usepackage{float} % 优化浮动体
+\usepackage[shortlabels,inline]{enumitem} % 优化列表
+\usepackage{appendix} % 优化附录
+
+%===================================
+% 表格
+%===================================
+
+\usepackage{booktabs, multirow, multicol}
+\usepackage{tabularx} % 表格自动换行，调整表格宽度 
+\usepackage{makecell} % 单元格内换行
+\usepackage{threeparttable} % 给表格添加脚注，参考：https://tex.stackexchange.com/questions/6090/clickable-table-footnote
+\usepackage{ltablex} % 跨页表格
+
+%===================================
+% 参考文献
+%===================================
+
+\usepackage[sort&compress]{gbt7714} % 参考文献样式
+\bibliographystyle{gbt7714-numerical} % 顺序编码制
+
+%===================================
+% 颜色
+%===================================
+
+\usepackage[dvipsnames, x11names, table]{xcolor} % 参考：https://tex.stackexchange.com/questions/659036/option-selecting-named-colours-provided-by-the-xcolor-package
+
+%===================================
+% 支持插入图片及子图
+%===================================
+
+\usepackage{graphicx}
+\graphicspath{
+    {./figure/}{./figures/}{./image/}{./images/}{./graphic/}{./graphics/}{./picture/}{./pictures/}
+} % 用于存放图片的目录，这样引用图片的时候就不需要指定目录
+\usepackage{subcaption}
+
+%===================================
+% 算法和伪代码
+%===================================
+
+\usepackage[linesnumbered, ruled, longend, lined]{algorithm2e} % 参考 algorithm2e 宏包文档
+\DontPrintSemicolon % 不打印分号
+\setlength{\algomargin}{2em} % 设置算法缩进使得行号在线框内
+\renewcommand{\CommentSty}[1]{\normalsize\textit{#1}} % 设置注释的字体样式为意大利斜体，字体大小为 \normalsize
+
+%===================================
+% 代码
+%===================================
+
+\usepackage{minted} % 参考 minted 宏包文档
+
+% 代码行号样式
+\renewcommand{\theFancyVerbLine}{
+\sffamily
+\textcolor{gray}{
+\footnotesize\oldstylenums{
+\arabic{FancyVerbLine}}}}
+
+% 行间代码环境
+\setminted{
+    style=colorful, % 设置代码风格，可选的代码风格参考：https://pygments.org/styles/
+    numbers=left, % 显示行号
+    numbersep=2pt, % 行号与代码的距离
+    mathescape, % 允许在代码注释中使用数学公式
+    breaklines, % 允许代码自动断行 
+    fontsize=\footnotesize, % 设置代码字体大小
+    frame=single, % 设置代码框
+    framerule=0.5pt, % 设置代码框线宽
+    resetmargins, % 重置代码边距
+}
+
+% 行内代码环境
+\setmintedinline{
+    style=colorful, % 设置代码风格，可选的代码风格参考：https://pygments.org/styles/
+    fontsize=\footnotesize, % 设置代码字体大小
+    breakanywhereinlinestretch=0.01em, % 允许行内代码在任意位置断行
+    breaklines, % 允许行内代码自动断行
+}
+
+%===================================
+% 超链接
+%===================================
+
+\usepackage{hyperref}
+\hypersetup{
+    bookmarksopen=true, % 启用书签
+    colorlinks=true, % 启用颜色
+    linkcolor=red, % 内部链接的颜色
+    linktoc=all, % 设置目录中的页码和标题都能够跳转
+    citecolor=violet, % 引用链接的颜色
+    urlcolor=magenta, % 外部链接的颜色
+}
+
+%===================================
+% 数学公式
+%===================================
+
+\usepackage{amsmath, amsthm, amsfonts, amssymb} % 用于加载数学公式、花体字母和数学字符
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{extarrows}
+\usepackage[noabbrev]{cleveref} % 多公式引用，必须放在 hyperref 宏包的后面，参考：https://tex.stackexchange.com/questions/314217/how-i-can-refer-multiple-equation-in-latex
+
+\allowdisplaybreaks[1] % 多行公式换页，1 为尽量避免换页
+\crefname{equation}{}{} % 设置非首字母大写的引用格式
+\Crefname{equation}{}{} % 设置首字母大写的引用格式
+\crefrangeformat{equation}{(#3#1#4)-(#5#2#6)} % 多公式引用的格式
+
+%===================================
+% 边注
+%===================================
+
+% 设置边注的字体大小
+\let\oldmarginpar\marginpar
+\renewcommand{\marginpar}[1]{\oldmarginpar{\footnotesize #1}}
+
+%===================================
+% 页脚和页眉
+%===================================
+
+\usepackage{fancyhdr} % 参考：https://tex.stackexchange.com/questions/732462/chapter-number-in-the-header-with-chapter/732464?noredirect=1#comment1824660_732464 
+\usepackage{lastpage} % 获取总页码
+\setlength{\headheight}{13pt} % 设置页眉高度
+
+% 重新定义 \author 和 \date 命令用于页眉
+\makeatletter
+\let\oldauthor\author
+\renewcommand{\author}[1]{\oldauthor{#1}\def\myauthor{#1}}
+\let\olddate\date
+\renewcommand{\date}[1]{\olddate{#1}\def\mydate{#1}}
+\makeatother
+
+% 详细参数参考 fancyhdr 宏包
+\pagestyle{fancy} % 设置文档的页面样式为 fancy，这意味着页眉和页脚将使用 fancyhdr 宏包提供的自定义格式
+\fancyhf{} % 清空原本的页脚页眉样式
+
+% 自定义页眉
+\fancyhead[L]{\myauthor} % 左侧显示作者
+\fancyhead[R]{\mydate} % 右侧显示日期
+
+\cfoot{\thepage\ / \pageref*{LastPage}} % 自定义页脚，参考：https://tex.stackexchange.com/questions/227/how-can-i-add-page-of-on-my-document
+
+%===================================
+% 字体
+%===================================
+
+\usepackage[T1]{fontenc} % 改善文档中西欧语言的显示效果
+\usepackage{anyfontsize}
+\usepackage{lmodern} % lmodern字体
+\usepackage{libertine} % Linux Libertine 字体系列(衬线字体)
+
+% 中文字体，具体设置参考 ctex 宏包
+\setCJKmainfont{LXGWWenKaiScreen.ttf}[ % 设置中文主字体为霞鹜文楷屏幕舒适版
+    Path=./fonts/,
+    BoldFont=FZHTJW.TTF, % 设置粗体为方正黑体
+    ItalicFont=FZKTJW.TTF, % 设置斜体为方正楷体
+]
+\setCJKsansfont{FZHTJW.TTF}[ % 设置无衬线字体为方正黑体
+    Path=./fonts/,
+    AutoFakeBold=1.5,  % 生成粗体效果
+    ItalicFont=FZFSJW.TTF, % 设置斜体为方正仿宋
+]
+\setCJKmonofont{LXGWWenKaiMonoScreen.ttf}[ % 设置等宽字体为霞鹜文楷等宽屏幕舒适版
+    Path=./fonts/,
+    AutoFakeBold=1.5,  % 生成粗体效果
+    ItalicFont=FZSSJW.TTF, % 设置斜体为方正书宋
+] 
+
+% 英文字体，具体设置参考 fontspec 宏包
+\setmonofont{MapleMono-NF-CN}[ % 设置英文等宽字体
+    Path=./fonts/, % 指定字体文件所在的目录
+    Extension=.ttf, % 字体文件后缀
+    UprightFont=*-Regular, % 正常字体
+    BoldFont=*-Bold, % 加粗
+    ItalicFont=*-Italic, % 斜体
+    BoldItalicFont=*-BoldItalic, % 粗斜体
+]
+
+%===================================
+% 定理盒子
+%===================================
+
+% 修改 proof 环境的引导词为 Proof，样式为加粗无斜体
+\renewcommand*{\proofname}{\normalfont\bfseries Proof}
+
+% 导入 thmtools 宏包，使用 \declaretheorem 命令来定义各种定理环境（比 \newtheorem 命令更加方便）
+\usepackage{thmtools}
+
+% 定义环境使用的 `\declaretheorem` 命令参数包括：
+% - `style`: 定理环境样式，amsthm 内置的样式包括
+%   - plain（默认）：引导词是正体，内容是斜体
+%   - definition：引导词和内容都是正体
+%   - remark：引导词是斜体，内容是正体
+% - `name`：显示在正文中的引导词（不等于环境的名称）
+% - `numbered`：是否开启编号
+% - `numberwithin`、`sibling`：定义编号规则，例如：
+%   - `numberwithin=section`：基于 section 编号
+%   - `sibling=theorem`：共享 `theorem` 环境的编号
+
+% 采用 plain 样式，定义 `theorem`/`theorem*`、`proposition`/`proposition*`、`corollary`/`corollary*`、`lemma`/`lemma*`、`claim`/`claim*` 环境
+
+\declaretheorem[style=plain, name=Theorem, numbered=yes, numberwithin=section]{theorem}
+\declaretheorem[style=plain, name=Theorem, numbered=no]{theorem*}
+
+\declaretheorem[style=plain, name=Proposition, numbered=yes, sibling=theorem]{proposition}
+\declaretheorem[style=plain, name=Proposition, numbered=no]{proposition*}
+
+\declaretheorem[style=plain, name=Corollary, numbered=yes, sibling=theorem]{corollary}
+\declaretheorem[style=plain, name=Corollary, numbered=no]{corollary*}
+
+\declaretheorem[style=plain, name=Lemma, numbered=yes, sibling=theorem]{lemma}
+\declaretheorem[style=plain, name=Lemma, numbered=no]{lemma*}
+
+\declaretheorem[style=plain, name=Claim, numbered=yes, sibling=theorem]{claim}
+\declaretheorem[style=plain, name=Claim, numbered=no]{claim*}
+
+% 采用 definition 样式，定义 `definition`/`definition*`、`example`/`example*`、`problem`/`problem*` 环境
+
+\declaretheorem[style=definition, name=Definition, numbered=yes, numberwithin=section]{definition}
+\declaretheorem[style=definition, name=Definition, numbered=no]{definition*}
+
+\declaretheorem[style=definition, name=Example, numbered=yes, numberwithin=section]{example}
+\declaretheorem[style=definition, name=Example, numbered=no]{example*}
+
+\declaretheorem[style=definition, name=Problem, numbered=yes, numberwithin=section]{problem}
+\declaretheorem[style=definition, name=Problem, numbered=no]{problem*}
+
+% 采用 remark 样式，定义 `remark`/`remark*`、`note`/`note*` 环境
+
+\declaretheorem[style=remark, name=Remark, numbered=yes, numberwithin=section]{remark}
+\declaretheorem[style=remark, name=Remark, numbered=no]{remark*}
+
+\declaretheorem[style=remark, name=Note, numbered=yes, numberwithin=section]{note}
+\declaretheorem[style=remark, name=Note, numbered=no]{note*}
+
+% 使用 `\declaretheoremstyle` 命令定义新的 solutionstyle 样式，类似 proof 环境，但是引导词变成 Solution
+\declaretheoremstyle[headfont=\bfseries, bodyfont=\normalfont, spaceabove=3pt, spacebelow=3pt, qed=\ensuremath{\square}]{solutionstyle}
+
+% 采用新定义的 solutionstyle 样式，定义 `solution`/`solition*` 环境
+\declaretheorem[style=solutionstyle, name=Solution, numbered=yes, numberwithin=section]{solution}
+\declaretheorem[style=solutionstyle, name=Solution, numbered=no]{solution*}
+
+% 导入 tcolorbox 宏包以使用盒子美化现有的定理环境
+\usepackage[most]{tcolorbox}
+
+% tcolorbox 宏包的功能非常复杂，这里只需要使用 `\tcolorboxenvironment` 命令
+% 首先封装一个 `\newtcbenvironment` 命令
+% 它可以同时为 `#1` 以及 `#1*` 这两个环境加上盒子，公共参数：
+% - `#2`：在定义时传入的参数，这里主要是边框颜色和背景色
+% - `enhanced`：样式增强
+% - `breakable`：允许跨页
+% - `boxrule=1pt`：边框宽度为 1pt
+%
+% 还有不同的参数：
+% - `#1` 盒子使用直角边框（`sharp corners`）
+% - `#1*` 盒子使用圆角边框（`rounded corners`）
+%
+% > 对 `\newtcbenvironment` 内部的公共参数部分进行调整，就可以实现所有盒子只保留左侧边框或者四周无边框等不同的效果。
+
+\newcommand{\newtcbenvironment}[2]{
+    \tcolorboxenvironment{#1}{#2, enhanced, breakable, sharp corners,leftrule=2pt, rightrule=0pt, toprule=0pt, bottomrule=0pt}
+    \tcolorboxenvironment{#1*}{#2, enhanced, breakable, rounded corners,leftrule=2pt, rightrule=0pt, toprule=0pt, bottomrule=0pt}
+}
+
+% 下面就是为前面的各种定理环境加上盒子，参数是盒子的边框颜色 `colframe` 和背景色 `colback`
+%
+% 具体颜色如下表
+%
+% |            环境名             |   盒子边框颜色    |    盒子背景色    |
+% | :---------------------------: | :---------------: | :--------------: |
+% |   `theorem`, `proposition`    |    RoyalPurple    |  RoyalPurple!8   |
+% | `corollary`, `lemma`, `claim` |     NavyBlue      |    SkyBlue!8     |
+% |         `definition`          |    ForestGreen    |  ForestGreen!5   |
+% |           `example`           |     RawSienna     |   RawSienna!5    |
+% |           `problem`           | WildStrawberry!30 | WildStrawberry!5 |
+%
+% 说明：
+%
+% - 这里采用 `xcolor` 宏包所提供的标准颜色，`xx!n`代表将颜色 `xx` 以 `n%` 比例和白色混合得到的浅颜色。
+% - 为了避免颜色过多，对语义类似的环境合并采用相同的盒子颜色。
+
+\newtcbenvironment{theorem}{colframe=RoyalPurple, colback=RoyalPurple!8}
+\newtcbenvironment{proposition}{colframe=RoyalPurple, colback=RoyalPurple!8}
+\newtcbenvironment{corollary}{colframe=NavyBlue, colback=SkyBlue!8}
+\newtcbenvironment{lemma}{colframe=NavyBlue, colback=SkyBlue!8}
+\newtcbenvironment{claim}{colframe=NavyBlue, colback=SkyBlue!8}
+
+\newtcbenvironment{definition}{colframe=ForestGreen, colback=ForestGreen!5}
+\newtcbenvironment{example}{colframe=RawSienna, colback=RawSienna!5}
+\newtcbenvironment{problem}{colframe=WildStrawberry!30, colback=WildStrawberry!5}
