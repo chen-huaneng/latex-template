@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Template for notes.
+- `\autoref` for table, figures and equations.
 
 ## [1.0.4] - 2025-08-12
 
