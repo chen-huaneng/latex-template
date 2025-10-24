@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Math font.
 - Title page’s title, author and date alignment and size.
 - Section left alignment.
+- Hide author and date in front page.
 
 ## [1.1.0] - 2025-08-13
 
