@@ -1,6 +1,6 @@
 %===================================
 % note-setup-leftsidebox.tex
-% huanengchen@foxmail.com 2025-08-12
+% huanengchen@foxmail.com 2025-10-24
 %===================================
 % 参考：https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
 
@@ -12,6 +12,19 @@
 \setlength{\parindent}{0pt} % 取消首行缩进
 \usepackage{parskip} % 形成段落间的间距
 \linespread{1.25} % 修改行距
+
+%===================================
+% 章节标题格式控制
+%===================================
+
+\usepackage{titlesec} % 用于自定义章节标题格式的宏包
+
+% 重新定义section标题：左对齐、加粗、编号与文本间距1em
+\titleformat{\section}
+  {\Large \bfseries\leftmargin=0pt} % 左对齐（leftmargin=0pt）+ 加粗
+  {\thesection} % 标题前缀
+  {1em} % 编号与标题文本的间距
+  {} % 标题文本格式（无额外设置，继承前面的bfseries）
 
 %===================================
 % 编辑体验
@@ -120,11 +133,14 @@
 % 数学公式
 %===================================
 
-\usepackage{amsmath, amsthm, amsfonts, amssymb} % 用于加载数学公式、花体字母和数学字符
+\usepackage{amsmath, amsthm, amsfonts, amssymb} % 基础数学包
 \usepackage{mathtools}
 \usepackage{mathrsfs}
 \usepackage{bm}
 \usepackage{extarrows}
+% \usepackage{lmodern} % 避免与newtx系列字体冲突
+\usepackage{newtxtext} % newtx文字字体（需与newtxmath配套使用）
+\usepackage{newtxmath} % 设置数学字体为newtxmath
 \usepackage[noabbrev]{cleveref} % 多公式引用，必须放在 hyperref 宏包的后面，参考：https://tex.stackexchange.com/questions/314217/how-i-can-refer-multiple-equation-in-latex
 
 \allowdisplaybreaks[1] % 多行公式换页，1 为尽量避免换页
@@ -154,10 +170,22 @@
 \renewcommand{\author}[1]{\oldauthor{#1}\def\myauthor{#1}}
 \let\olddate\date
 \renewcommand{\date}[1]{\olddate{#1}\def\mydate{#1}}
+
+% 重定义\maketitle：调整标题/作者/日期 + 与页眉间距
+\renewcommand{\maketitle}{
+    \vspace{-1cm} % 调整标题与页眉的间距（负数值缩小间距，可按需微调）
+    \begin{center} % 标题居中对齐
+        {\Huge \bfseries \@title \par} % 标题加粗放大
+    \end{center}
+    \begin{center} % 居中对齐
+        {\@author \par}
+        {\@date \par}
+    \end{center}
+}
 \makeatother
 
 % 详细参数参考 fancyhdr 宏包
-\pagestyle{fancy} % 设置文档的页面样式为 fancy，这意味着页眉和页脚将使用 fancyhdr 宏包提供的自定义格式
+\pagestyle{fancy} % 设置文档的页面样式为 fancy
 \fancyhf{} % 清空原本的页脚页眉样式
 
 % 自定义页眉
@@ -166,13 +194,21 @@
 
 \cfoot{\thepage\ / \pageref*{LastPage}} % 自定义页脚，参考：https://tex.stackexchange.com/questions/227/how-can-i-add-page-of-on-my-document
 
+
+% 重定义首页的 plain 样式，使其与 fancy 样式一致
+\fancypagestyle{plain}{
+    \fancyhf{} % 清空默认 plain 样式的页眉页脚
+    \fancyhead[L]{\myauthor} % 首页页眉左侧显示作者
+    \fancyhead[R]{\mydate} % 首页页眉右侧显示日期
+    \cfoot{\thepage\ / \pageref*{LastPage}} % 首页页脚保持与正文一致
+}
+
 %===================================
 % 字体
 %===================================
 
 \usepackage[T1]{fontenc} % 改善文档中西欧语言的显示效果
 \usepackage{anyfontsize}
-\usepackage{lmodern} % lmodern字体
 \usepackage{libertine} % Linux Libertine 字体系列(衬线字体)
 
 % 中文字体，具体设置参考 ctex 宏包
