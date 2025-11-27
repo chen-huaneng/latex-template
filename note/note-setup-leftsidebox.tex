@@ -211,43 +211,36 @@
         \vspace{0.4cm}
         {\huge \@title \par} % 标题
     \end{center}
-    % 可以注释下面的 \@author 和 \@date 隐藏不必要的信息
-    \begin{center} % 居中对齐
-        {% 添加期刊名称和论文作者
-            \ifx\paperauthor\empty
-                \ifx\journalname\empty
-                    % 两者都为空，不添加额外垂直间距
-                \else
-                    \hfill \textbf{Journal:} \journalname \par
-                \fi
-            \else
-                \ifx\journalname\empty
-                    \textbf{Paper Author:} \paperauthor \hfill \mbox{} \par
-                \else
-                    \textbf{Paper Author:} \paperauthor \hspace{\fill} \textbf{Journal:} \journalname \par
-                \fi
-            \fi
+    {% 添加期刊名称和论文作者
+        \ifx\paperauthor\empty
+        \else
+            \textbf{Paper Author:} \paperauthor \par
             \vspace{-0.2cm}
-        }
-        {% 添加论文发表日期和DOI行
-            \ifx\paperdate\empty
-                \ifx\paperdoi\empty
-                    % 两者都为空，不添加额外垂直间距
-                \else
-                    \hfill \textbf{DOI:} \paperdoi \par
-                \fi
-            \else
-                \ifx\paperdoi\empty
-                    \textbf{Published:} \paperdate \hfill \mbox{} \par
-                \else
-                    \textbf{Published:} \paperdate \hspace{\fill} \textbf{DOI:} \paperdoi \par
-                \fi
-            \fi
+        \fi
+        \ifx\journalname\empty
+        \else
+            \textbf{Journal:} \journalname \par
             \vspace{-0.2cm}
-        }
-        {\textbf{Author:} \@author \hspace{\fill} \textbf{Email:} \authoremail \hspace{\fill} \textbf{Date:} \@date \vspace{-0.2cm}}
-        \noindent\rule{\textwidth}{0.1em}
-    \end{center}
+        \fi
+    }
+    {% 添加论文发表日期和DOI行
+        \ifx\paperdate\empty
+            \ifx\paperdoi\empty
+                % 两者都为空，不添加额外垂直间距
+            \else
+                \hfill \textbf{DOI:} \paperdoi \par
+            \fi
+        \else
+            \ifx\paperdoi\empty
+                \textbf{Published:} \paperdate \hfill \mbox{} \par
+            \else
+                \textbf{Published:} \paperdate \hspace{\fill} \textbf{DOI:} \paperdoi \par
+            \fi
+        \fi
+        \vspace{-0.2cm}
+    }
+    {\textbf{Author:} \@author \hspace{\fill} \textbf{Email:} \authoremail \hspace{\fill} \textbf{Date:} \@date \vspace{-0.2cm}}
+    \noindent\rule{\textwidth}{0.1em}
 }
 \makeatother
 
