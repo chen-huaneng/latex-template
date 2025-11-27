@@ -5,6 +5,13 @@
 \title{\LaTeX{} Note Template}
 \author{Chen Huaneng}
 \date{\today}
+\setauthoremail{huanengchen@foxmail.com} % 笔记作者的邮箱
+
+% 论文相关字段
+\setjournal{Rubbish and Garbage}
+\setpaperauthor{Alpha, Beta, Gamma}
+\setpaperdate{2025-11-27}
+\setpaperdoi{10.1234/journal.2025.12345}
 
 \begin{document}
 
@@ -15,116 +22,60 @@
 %===================================
 \section{表格展示}
 
-% === 表格内脚注测试 ===
-\subsection{表格内脚注}
+% === 表格内脚注和跨页表格测试 ===
+\subsection{表格内脚注和跨页表格}
 
-\begin{table}[!htbp]
-    \begin{threeparttable}
-    \centering
-    \caption{FSTSP模型符号及含义}
-    \label{tab:fstsp-sign-meaning}
-    \begin{tabularx}{\textwidth}{lX}
-        \toprule[1pt] % 表头线宽1镑（point, pt）
-        符号 & 含义 \\
-        \midrule[0.75pt] % 表中间线宽0.75镑（point, pt）
-        $0$ & 起点仓库 \\
-        $c + 1$ & 终点仓库（和起点仓库相同，只是为了建模方便的另一个记号） \\
-        $C=\{1,2,\cdots,c\}$ & 全部客户集合 \\
-        $C' \subseteq C$ & 无人机可访问的客户集合 \\
-        $N_0 = \{0,1,2,\cdots,c\}$ & 流出节点集合 \\
-        $N_+ = \{1,2,\cdots,c + 1\}$ & 流入节点集合 \\
-        $N = \{0,1,2,\cdots,c,c + 1\}$ & 全部节点集合 \\
-        \makecell[l]{$\langle i,j,k\rangle \in P,i \in N_0, j \in\{ C': j \neq i\},$\\
-        $k \in\{ N_+: k \neq i, k \neq j,\tau_{ij}'+\tau_{jk}'\leq e\}$} & 无人机飞行路径集合 \\
-        $\tau_{ij}'/\tau_{ij}, i \in N_0, j \in N_+, i \neq j, \tau_{0, c+1}\equiv 0\hyperlink{tab:fstsp-item-1}{\tnote{a}}$ & 弧$\langle i,j\rangle$的飞行/行驶时间成本 \\
-        $s_L/s_R$ & 无人机发射/回收耗时 \\
-        $e$ & 无人机续航时长，以单位时间来衡量 \\
-        $x_{ij} \in \{0,1\}, i \in N_0, j \in N_+, i\neq j$ & 卡车路由决策变量 \\
-        $y_{ijk} \in \{0,1\}, i \in N_0, j \in C, k\in \{N_+: \langle i,j,k \rangle \in P\}$ & 无人机路由决策变量 \\
-        $t_i'/t_i\geq 0, i\in N_+, t_0' = t_0 = 0$ & 无人机/卡车有效到达时间戳辅助变量 \\
-        $p_{ij} \in \{0,1\}\hyperlink{tab:fstsp-item-2}{\tnote{b}},p_{0j} = 1 ,\forall j \in C$ & 卡车访问次序先后辅助变量（为了确保无人机连续的sortie和卡车访问的顺序一致\hyperlink{tab:fstsp-item-3}{\tnote{c}}） \\
-        $1 \leq u_i \leq c + 2, i \in N_+$ & 卡车破子圈辅助变量（和标准TSP的MTZ形式破子圈辅助变量类似\hyperlink{tab:fstsp-item-4}{\tnote{d}}） \\
-        \bottomrule[1pt] % 表尾线宽1镑（point, pt）
-    \end{tabularx}
-    \begin{tablenotes}
-        \footnotesize % 设置脚注内容字体大小为\footnotesize
-        \item[a] \hypertarget{tab:fstsp-item-1}{}出于完备性的考虑，当只有一个顾客节点的时候，这个顾客将由无人机从仓库直接起飞进行服务。
-        \item[b] \hypertarget{tab:fstsp-item-2}{}当卡车访问顾客节点$j\in \{C:j\neq i\}$时，顾客节点$i \in C$已经在之前的某个时间点被卡车访问过了，则$p_{ij} = 1$。
-        \item[c] \hypertarget{tab:fstsp-item-3}{}当顾客节点$i$或者$j$仅被无人机服务时，$p_{ij}$的取值就不重要。
-        \item[d] \hypertarget{tab:fstsp-item-4}{}$u_i$表示顾客点$i$在卡车访问的路径中的次序，比如$u_5 = 1$表示顾客点$i = 5$是卡车访问路径中的第1个节点，但是不同于TSP，在FSTSP中需要通过约束将无人机服务的顾客点$i$排除在外。
-    \end{tablenotes}
-    \end{threeparttable}
-\end{table}
-
-% === 跨页表格测试 ===
-\subsection{跨页表格}
-
-\begin{tabularx}{\textwidth}{lccc}
-    \caption{Symmetric Traveling Salesman Problem Examples} \label{tab:dataset-stsp-example} \\
-    \toprule[1pt]
-    数据名称 & 城市数量 & 距离计算方式 & 最优值 \\ 
-    \midrule[0.75pt]
-    \endfirsthead
-    \multicolumn{2}{c}{\tablename\ \thetable (续)} \\ % 续表的表头
-    \toprule[1pt]
-    数据名称 & 城市数量 & 距离计算方式 & 最优值 \\ 
-    \midrule[0.75pt]
-    \endhead
-    \bottomrule[1pt]
-    \endfoot
-    \bottomrule[1pt]
-    \endlastfoot
-    % 表格内容
-    a280 & 280 & EUC\_2D & 2579 \\
-    berlin52 & 52 & EUC\_2D & 7542 \\
-    bier127 & 127 & EUC\_2D & 118282 \\
-    ch130 & 130 & EUC\_2D & 6110 \\
-    ch150 & 150 & EUC\_2D & 6528 \\
-    d198 & 198 & EUC\_2D & 15780 \\
-    d493 & 493 & EUC\_2D & 35002 \\
-    d657 & 657 & EUC\_2D & 48912 \\
-    eil51 & 51 & EUC\_2D & 426 \\
-    eil76 & 76 & EUC\_2D & 538 \\
-    eil101 & 101 & EUC\_2D & 629 \\
-    fl417 & 417 & EUC\_2D & 11861 \\
-    gil262 & 262 & EUC\_2D & 2378 \\
-    kroA100 & 100 & EUC\_2D & 21282 \\
-    kroB100 & 100 & EUC\_2D & 22141 \\
-    kroC100 & 100 & EUC\_2D & 20749 \\
-    kroD100 & 100 & EUC\_2D & 21294 \\
-    kroE100 & 100 & EUC\_2D & 22068 \\
-    kroA150 & 150 & EUC\_2D & 26524 \\
-    kroB150 & 150 & EUC\_2D & 26130 \\
-    kroA200 & 200 & EUC\_2D & 29368 \\
-    kroB200 & 200 & EUC\_2D & 29437 \\
-    lin105 & 105 & EUC\_2D & 14379 \\
-    lin318 & 318 & EUC\_2D & 42029 \\
-    linhp318 & 318 & EUC\_2D & 41345 \\
-    p654 & 654 & EUC\_2D & 34643 \\
-    pcb442 & 442 & EUC\_2D & 50778 \\
-    pr76 & 76 & EUC\_2D & 108159 \\
-    pr107 & 107 & EUC\_2D & 44303 \\
-    pr124 & 124 & EUC\_2D & 59030 \\
-    pr136 & 136 & EUC\_2D & 96772 \\
-    pr144 & 144 & EUC\_2D & 58537 \\
-    pr152 & 152 & EUC\_2D & 73682 \\
-    pr226 & 226 & EUC\_2D & 80369 \\
-    pr264 & 264 & EUC\_2D & 49135 \\
-    pr299 & 299 & EUC\_2D & 48191 \\
-    pr439 & 439 & EUC\_2D & 107217 \\
-    rat99 & 99 & EUC\_2D & 1211 \\
-    rat195 & 195 & EUC\_2D & 2323 \\
-    rat575 & 575 & EUC\_2D & 6773 \\
-    rat783 & 783 & EUC\_2D & 8806 \\
-    rd100 & 100 & EUC\_2D & 7910 \\
-    rd400 & 400 & EUC\_2D & 15281 \\
-    st70 & 70 & EUC\_2D & 675 \\
-    ts225 & 225 & EUC\_2D & 126643 \\
-    tsp225 & 225 & EUC\_2D & 3919 \\
-    u159 & 159 & EUC\_2D & 42080 \\
-    u574 & 574 & EUC\_2D & 36905 \\
-    u724 & 724 & EUC\_2D & 41910 \\
-\end{tabularx}
+% 使用tabularray宏包的longtblr环境创建跨页长表格
+\begin{longtblr}[
+    caption = {mVRP-D 模型符号及含义},  % 表格标题
+    label = {tab:mvrpd-sign-meaning-longtable},   % 表格标签，用于后续交叉引用（\ref{}）
+    % 定义表注：标识为[a]，内容包含交叉引用锚点
+    note{a} = {\footnotesize\hypertarget{tab:mvrpd-item-1}{}文章中假设无人机的最大续航里程与无人机的自重和运载的顾客包裹的重量之和成反比。},
+]{
+    width = \textwidth,       % 表格总宽度等于文本宽度
+    colspec = {@{} Q[l, mode=math] X[l] @{} },  % 列格式设置
+    % 解释colspec：
+    % @{} 移除表格左右两侧的默认空白（使表格边缘更紧凑）
+    % Q[l, mode=math] 第一列：左对齐（l），默认进入数学模式（无需手动加$...$）
+    % X[l] 第二列：自适应宽度（填充剩余空间），左对齐（l）
+    row{1} = {font=\bfseries, mode=text},  % 表头行（第1行）样式：文字加粗（\bfseries），强制文本模式（覆盖数学模式）
+    rowhead = 1,              % 设置第1行为表头，表格跨页时每页顶部自动重复显示表头
+}
+    \toprule[1pt] % 表头线宽1pt
+    符号 & 含义 \\
+    \midrule[0.75pt] % 中间线宽0.75pt
+    G = (N, E) & 定义顾客和仓库节点的图 \\ 
+    N = \{0, 1, 2, \dots, n, n + 1\} & 图的节点，包括顾客节点 $i, j \in N_c = \{1, 2, \dots, n\}$ 以及仓库节点（其中一个是虚拟仓库） $\{0, n + 1\}$ \\ 
+    N_c = N \setminus \{0, n + 1\} & 顾客节点集合 $\{1, 2, \dots, n\}$ \\
+    N_0 = N \setminus \{n + 1\} & 无人机或卡车可能的出发节点集合 $\{0, 1, \dots, n\}$ \\ 
+    N_+ = N \setminus \{0\} & 无人机或卡车可能的到达节点集合 $\{1, 2, \dots, n, n + 1\}$ \\
+    E & 图的弧，可能的配送路径 \\
+    q_i & 顾客 $i$ 的需求（包裹重量） \\ 
+    K & 卡车组的集合，卡车组的数量为 $\mid K \mid$，卡车组的索引为 $k$ \\ 
+    f & 无人机空载时的自重 \\ 
+    m_k^K & 卡车最大载重限制 \\
+    m_k^D & 卡车 $k$ 上的无人机的最大载重限制 \\ 
+    e_k^D & 卡车组 $k$ 的无人机空载时的最大续航里程 \\ 
+    e_{ki}^D & 卡车 $k$ 上的无人机载重顾客 $i$ 的需求时的续航里程，当 $q_i \leq m_k^D$ 时，$e_{ki}^D = e_k^D \frac{f}{f + q_i}$，否则 $e_{ki}^D = 0$\hyperlink{tab:mvrpd-item-1}{\TblrNote{a}} \\ 
+    t_{ijk}^K & 卡车 $k$ 从节点 $i$ 到节点 $j$ 所需的行驶时间 \\ 
+    t_{ijk}^D & 卡车 $k$ 上的无人机从节点 $i$ 到节点 $j$ 所需的飞行时间 \\ 
+    \langle i, j , h\rangle & 无人机的运输路径，从 $i$ 节点起飞，配送顾客节点 $j$，最终和卡车在节点 $h$ 会合 \\ 
+    F & 所有可能的无人机的运输路径，即无人机搭载顾客节点 $j$ 的包裹时的最大续航里程不小于从 $i$ 节点到 $j$ 顾客节点和从 $j$ 顾客节点到卡车所在节点 $h$ 的飞行时间之和 $(i, j, h) \in F, i \in N_0, j \in \{N_c: j \neq i\}, h \in \{N_+: h \neq j, h \neq i, t_{ijk}^D + t_{jhk}^D \leq e_{kj}^D\}$ \\
+    s^K & 单辆卡车的单位时间内的单位运输成本 \\ 
+    s^D & 单架无人机单位时间内的单位运输成本 \\
+    s^W & 单辆卡车的单位时间内的单位等待时间成本 \\
+    s^G & 单个卡车组的固定使用成本 \\ 
+    M & 足够大的正数 \\ 
+    \alpha_{ijk} & 二元决策变量，当卡车 $k$ 从节点 $i \in N_0$ 行驶到节点 $j \in N_+$ 时等于 $1$，否则为 $0$ \\
+    \beta_{ijhk} & 二元决策变量，当卡车 $k$ 上的无人机从节点 $i \in N_0$ 起飞，服务顾客节点 $j \in N_c$，最终和卡车 $k$ 在节点 $h \in N_+$ 会合时等于 $1$，否则等于 $0$ \\ 
+    \mu_{ik} & 整数，表示卡车 $k$ 的路径中节点 $i$ 的次序 \\
+    \gamma_{ijk} & 二元决策变量，当卡车 $k$ 服务节点 $i$ 的次序在服务节点 $j$ 的次序之前时等于 $1$，否则等于 $0$ \\
+    \tau_{ik}^K & 非负连续变量，卡车 $k$ 到达节点 $i$ 的时间 \\ 
+    \tau_{ik}^D & 非负连续变量，卡车 $k$ 上的无人机到达节点 $i$ 的时间 \\ 
+    \rho_{ik} & 非负连续变量，卡车组 $k$ 到达节点 $i$ 的时间（即卡车或无人机最后一个到达节点 $i$ 的时间） \\
+    \varepsilon_k & 二元变量，当卡车组 $k$ 被选中时等于 $1$（即卡车组 $k$ 参与了配送） ，否则等于 $0$ \\ 
+    \bottomrule[1pt] % 表尾线宽1pt
+\end{longtblr}
 
 % === 单元格内换行测试 ===
 \subsection{单元格内换行}
@@ -461,7 +412,7 @@ This is a footnote example\footnote{Related footnote is here.}.
 
 \subsection{智能交叉引用}
 
-这是一个数学公式引用：\autoref{eq:tsp-out}，这是一个图片引用：\autoref{fig:subfig_a}，这是一个表格引用：\autoref{tab:fstsp-sign-meaning}。
+这是一个数学公式引用：\autoref{eq:tsp-out}，这是一个图片引用：\autoref{fig:subfig_a}，这是一个表格引用：\autoref{tab:mvrpd-sign-meaning-longtable}。
 
 \section{Section example}
 
@@ -898,5 +849,10 @@ Calculate the integral of the function $g(x) = 3x^2$ with respect to $x$.
 % 参考文献测试
 %===================================
 \bibliography{references}
+
+%===================================
+% 插入PDF测试
+%===================================
+\includepdf[pages=-]{Travelling Salesman Problem and Bellman-Held-Karp Algorithm.pdf}
 
 \end{document}

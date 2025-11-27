@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-11-27
+
+### Changed
+
+- Title page’s title, author and date alignment and size.
+- Show author and date in front page.
+- Hide page header.
+- Date format.
+
+### Added
+
+- Paper author, journal name, published date, DOI and author’s email in title page.
+- Support long table with footnote.
+- Support pdf insertion.
+
 ## [1.1.1] - 2025-10-24
 
 ### Changed

@@ -1,6 +1,6 @@
 %===================================
 % note-setup-leftsidebox.tex
-% huanengchen@foxmail.com 2025-10-24
+% huanengchen@foxmail.com 2025-11-27
 %===================================
 % 参考：https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
 
@@ -40,6 +40,8 @@
 
 \usepackage{booktabs, multirow, multicol}
 \usepackage{tabularx} % 表格自动换行，调整表格宽度 
+\usepackage{tabularray} % 跨页表格添加脚注，参考：https://tex.stackexchange.com/questions/754588/how-can-i-make-the-following-threeparttable-with-footnote-span-multiple-pages-in
+\UseTblrLibrary{booktabs} % 跨页表格添加脚注
 \usepackage{makecell} % 单元格内换行
 \usepackage{threeparttable} % 给表格添加脚注，参考：https://tex.stackexchange.com/questions/6090/clickable-table-footnote
 \usepackage{ltablex} % 跨页表格
@@ -66,6 +68,12 @@
     {./figure/}{./figures/}{./image/}{./images/}{./graphic/}{./graphics/}{./picture/}{./pictures/}
 } % 用于存放图片的目录，这样引用图片的时候就不需要指定目录
 \usepackage{subcaption}
+
+%===================================
+% 插入外部PDF文件
+%===================================
+
+\usepackage{pdfpages} % 在 LaTeX 中插入外部 PDF 文件
 
 %===================================
 % 算法和伪代码
@@ -130,6 +138,13 @@
 \def\equationautorefname{公式} % 将 "Equation" 改为 "公式"
 
 %===================================
+% 日期格式控制
+%===================================
+
+\usepackage{datetime2}
+\DTMsetdatestyle{iso} % YYYY-MM-DD 格式
+
+%===================================
 % 数学公式
 %===================================
 
@@ -162,7 +177,25 @@
 
 \usepackage{fancyhdr} % 参考：https://tex.stackexchange.com/questions/732462/chapter-number-in-the-header-with-chapter/732464?noredirect=1#comment1824660_732464 
 \usepackage{lastpage} % 获取总页码
-\setlength{\headheight}{13pt} % 设置页眉高度
+% \setlength{\headheight}{13pt} % 设置页眉高度
+
+% 定义命令用于添加期刊名称、论文作者、论文发表日期以及论文DOI
+\newcommand{\setjournal}[1]{\gdef\journalname{#1}}
+\newcommand{\setpaperauthor}[1]{\gdef\paperauthor{#1}}
+\newcommand{\setpaperdate}[1]{\gdef\paperdate{#1}}
+\newcommand{\setpaperdoi}[1]{\gdef\paperdoi{#1}}
+\gdef\journalname{}
+\gdef\paperauthor{}
+\gdef\paperdate{}
+\gdef\paperdoi{}
+
+% 定义命令用于添加笔记作者的邮箱
+\newcommand{\setauthoremail}[1]{\gdef\authoremail{#1}}
+\gdef\authoremail{}
+
+% 给DOI和笔记作者的邮箱添加超链接
+\renewcommand{\setpaperdoi}[1]{\gdef\paperdoi{\href{https://doi.org/#1}{#1}}}
+\renewcommand{\setauthoremail}[1]{\gdef\authoremail{\href{mailto:#1}{#1}}}
 
 % 重新定义 \author 和 \date 命令用于页眉
 \makeatletter
@@ -175,13 +208,46 @@
 \renewcommand{\maketitle}{
     \vspace{-1cm} % 调整标题与页眉的间距（负数值缩小间距，可按需微调）
     \begin{center} % 标题居中对齐
-        {\Huge \bfseries \@title \par} % 标题加粗放大
+        \vspace{0.4cm}
+        {\huge \@title \par} % 标题
     \end{center}
-    % 刻意删除 \@author 和 \@date 隐藏不必要的信息
-    % \begin{center} % 居中对齐
-    %     {\@author \par}
-    %     {\@date \par}
-    % \end{center}
+    % 可以注释下面的 \@author 和 \@date 隐藏不必要的信息
+    \begin{center} % 居中对齐
+        {% 添加期刊名称和论文作者
+            \ifx\paperauthor\empty
+                \ifx\journalname\empty
+                    % 两者都为空，不添加额外垂直间距
+                \else
+                    \hfill \textbf{Journal:} \journalname \par
+                \fi
+            \else
+                \ifx\journalname\empty
+                    \textbf{Paper Author:} \paperauthor \hfill \mbox{} \par
+                \else
+                    \textbf{Paper Author:} \paperauthor \hspace{\fill} \textbf{Journal:} \journalname \par
+                \fi
+            \fi
+            \vspace{-0.2cm}
+        }
+        {% 添加论文发表日期和DOI行
+            \ifx\paperdate\empty
+                \ifx\paperdoi\empty
+                    % 两者都为空，不添加额外垂直间距
+                \else
+                    \hfill \textbf{DOI:} \paperdoi \par
+                \fi
+            \else
+                \ifx\paperdoi\empty
+                    \textbf{Published:} \paperdate \hfill \mbox{} \par
+                \else
+                    \textbf{Published:} \paperdate \hspace{\fill} \textbf{DOI:} \paperdoi \par
+                \fi
+            \fi
+            \vspace{-0.2cm}
+        }
+        {\textbf{Author:} \@author \hspace{\fill} \textbf{Email:} \authoremail \hspace{\fill} \textbf{Date:} \@date \vspace{-0.2cm}}
+        \noindent\rule{\textwidth}{0.1em}
+    \end{center}
 }
 \makeatother
 
@@ -190,8 +256,9 @@
 \fancyhf{} % 清空原本的页脚页眉样式
 
 % 自定义页眉
-\fancyhead[L]{\myauthor} % 左侧显示作者
-\fancyhead[R]{\mydate} % 右侧显示日期
+\renewcommand{\headrulewidth}{0pt} % 设置页眉横线宽度为0pt，消除页眉的横线
+% \fancyhead[L]{\myauthor} % 左侧显示作者
+% \fancyhead[R]{\mydate} % 右侧显示日期
 
 \cfoot{\thepage\ / \pageref*{LastPage}} % 自定义页脚，参考：https://tex.stackexchange.com/questions/227/how-can-i-add-page-of-on-my-document
 
@@ -199,8 +266,9 @@
 % 重定义首页的 plain 样式，使其与 fancy 样式一致
 \fancypagestyle{plain}{
     \fancyhf{} % 清空默认 plain 样式的页眉页脚
-    \fancyhead[L]{\myauthor} % 首页页眉左侧显示作者
-    \fancyhead[R]{\mydate} % 首页页眉右侧显示日期
+    % \fancyhead[L]{\myauthor} % 首页页眉左侧显示作者
+    % \fancyhead[R]{\mydate} % 首页页眉右侧显示日期
+    \renewcommand{\headrulewidth}{0pt} % 设置页眉横线宽度为0pt，消除页眉的横线
     \cfoot{\thepage\ / \pageref*{LastPage}} % 首页页脚保持与正文一致
 }
 
