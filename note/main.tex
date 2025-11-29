@@ -846,6 +846,55 @@ Calculate the integral of the function $g(x) = 3x^2$ with respect to $x$.
 \end{note*}
 
 %===================================
+% 数学公式标记测试
+%===================================
+\section{Annotate equations in \LaTeX\ using TikZ}
+
+用 \href{https://github.com/st--/annotate-equations}{annotate equations} 宏包实现数学公式的标注功能，该宏包来源于一个用 TikZ 实现数学公式标注的\href{https://github.com/synercys/annotated_latex_equations}{例子}。
+
+\annotatevspace{3em} % 为最上方的注释预留空间（yshift=3em + 安全余量）
+
+\begin{equation*}
+    \mathcal{O}\big(
+        (
+        \eqnmarkbox[NavyBlue]{p1}{p}
+        \eqnmarkbox[OliveGreen]{k1}{\kappa}^3
+        )
+        \eqnmarkbox[WildStrawberry]{T1}{T}
+        +
+        (
+        \eqnmarkbox[NavyBlue]{p2}{p}
+        \eqnmark[OliveGreen]{k2}{\kappa}
+        )
+        (
+        \eqnmarkbox[WildStrawberry]{T2}{T}^2
+        \tikzmarknode[outer ysep=1.5pt]{Is}{|\mathcal{I}^*|} % 增加箭头间距
+        \eqnmarkbox[Plum]{Nb}{N_b}
+        \eqnmark[RoyalPurple]{M}{M}
+        )
+    \big)
+\end{equation*}
+
+% 顶部注释（最大yshift）
+\annotatetwo[yshift=3.2em, font=\footnotesize]{above}{p1}{p2}{\# of nodes}
+\annotate[yshift=4.5em, font=\footnotesize]{above,left}{Is}{size of set of allowed interventions}
+
+% 中部注释
+\annotate[yshift=1.8em, font=\footnotesize]{above}{Nb}{\# of samples per batch}
+\annotatetwo[yshift=-0.5em, font=\footnotesize]{below}{T1}{T2}{\# of graphs in $\hat{\mathcal{G}}_T$}
+
+% 底部注释（最小yshift）
+\annotatetwo[yshift=-2.2em, font=\footnotesize]{below}{k1}{k2}{max.\ indegree in $\hat{\mathcal{G}}_T$}
+\annotate[yshift=-3.5em, font=\footnotesize]{below}{M}{\# of samples for $\mathbb{E}_y$}
+
+% \annotatevspace{3.5em} % 为最下方的注释预留空间（yshift=3.5em + 安全余量）
+
+% 后续正文内容
+Here is the normal text content that follows the annotated equation. 
+Notice how the annotations no longer overlap with this paragraph due to 
+the proper vertical spacing adjustments.
+
+%===================================
 % 参考文献测试
 %===================================
 \bibliography{references}

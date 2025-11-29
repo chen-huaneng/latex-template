@@ -1,6 +1,6 @@
 %===================================
 % note-setup-leftsidebox.tex
-% huanengchen@foxmail.com 2025-11-27
+% huanengchen@foxmail.com 2025-11-29
 %===================================
 % 参考：https://tex.stackexchange.com/questions/59702/suggest-a-nice-font-family-for-my-basic-latex-template-text-and-math
 
@@ -299,6 +299,24 @@
     ItalicFont=*-Italic, % 斜体
     BoldItalicFont=*-BoldItalic, % 粗斜体
 ]
+
+%===================================
+% 数学公式标记
+%===================================
+
+\usepackage{annotate-equations} % 使用方法参考：https://github.com/st--/annotate-equations
+
+% 统一高亮框高度（解决不同符号高度不一致问题）
+% \renewcommand{\eqnhighlightheight}{\vphantom{|\mathcal{I}^*|}\mathstrut} % 使用最高元素作为基准
+
+% 增加注释区域垂直空间
+\newcommand{\annotatevspace}[1]{\par\vspace{#1}\noindent} % 创建专用间距命令
+
+% 优化注释样式（减小占用空间）
+\tikzset{
+    annotate equations/arrow/.style={thin}, % 箭头变细
+    annotate equations/text/.style={font=\footnotesize} % 注释文字缩小
+}
 
 %===================================
 % 定理盒子
